@@ -1,4 +1,4 @@
-baseURL: https://example.docsy.dev
+baseURL: https://www.kowabunga.cloud
 title: Kowabunga
 
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
@@ -68,6 +68,12 @@ markup:
 # Comment out if you don't want the "print entire section" link enabled.
 outputs:
   section: [HTML, print, RSS]
+
+menu:
+  main:
+    - name: Download
+      weight: 50
+      url: 'https://github.com/kowabunga-cloud/'
 
 params:
   taxonomy:
@@ -191,8 +197,6 @@ params:
         desc: Discuss development issues around the project
 
 module:
-  # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
-  # workspace: docsy.work
   hugoVersion:
     extended: true
     min: 0.110.0
