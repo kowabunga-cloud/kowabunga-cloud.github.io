@@ -2,14 +2,21 @@
 title: Kowabunga
 ---
 
-{{< blocks/cover title="Welcome to Kowabunga: A Docsy Example Project!" image_anchor="top" height="full" >}}
+{{< blocks/cover title="Your SD-WAN and HCI Orchestration Engine." image_anchor="top" height="full" >}}
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
   Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
 <a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/google/docsy-example">
   Download <i class="fab fa-github ms-2 "></i>
 </a>
-<p class="lead mt-5">Porridge temperature assessment &mdash; in the cloud!</p>
+<p class="lead mt-5">
+Kowabunga provides DevOps with a complete infrastructure automation suite to orchestrate virtual resources management automation on privately-owned commodity hardware.
+
+It brings the best of both worlds:
+
+- Cloud API, automation, infrastructure-as-code, X-as-a-service ...</li>
+- On-Premises mastered and predictable flat-rate hardware.</li>
+</p>
 {{< blocks/link-down color="info" >}}
 {{< /blocks/cover >}}
 
