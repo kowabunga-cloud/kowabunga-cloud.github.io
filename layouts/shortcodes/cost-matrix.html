@@ -1,9 +1,24 @@
-<div class="row justify-content-start">
-  <div class="col-6">
-    HELLO WORLD
+<div class="row">
+  <div class="col-2">
+    <input type="range" class="form-range" id="vCpuInput" min="0" max="100" value="75">
+    <br/>
+    <br/>
+    <input type="range" class="form-range" id="memoryInput" min="0" max="100">
+    <br/>
+    <br/>
+    <input type="range" class="form-range" id="storageInput" min="0" max="100">
   </div>
-  <div class="col-6">
-    <canvas id="myChart"></canvas>
+  <div class="col-2">
+    <span id="vCpuValue">75</span> vCPUs
+    <br/>
+    <br/>
+    <span id="memoryValue">50</span> GB Memory
+    <br/>
+    <br/>
+    <span id="storageValue">50</span> GB Block Storage
+  </div>
+  <div class="col-8">
+    <canvas id="priceChart"></canvas>
   </div>
 </div>
 
@@ -11,7 +26,63 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
+  class Provider {
+      // Private Fields
+      static #_KOWABUNGA = 0;
+      static #_AZURE = 1;
+      static #_AMAZON = 2;
+      static #_GOOGLE = 3;
+
+      // Accessors for "get" functions only (no "set" functions)
+      static get KOWABUNGA() { return this.#_KOWABUNGA; }
+      static get AZURE() { return this.#_AZURE; }
+      static get AMAZON() { return this.#_AMAZON; }
+      static get GOOGLE() { return this.#_GOOGLE; }
+  }
+
+  class Sku {
+      // Private Fields
+      static #_VCPU = 0;
+      static #_MEM = 1;
+      static #_STORAGE = 2;
+
+      // Accessors for "get" functions only (no "set" functions)
+      static get VCPU() { return this.#_VCPU; }
+      static get MEM() { return this.#_MEM; }
+      static get STORAGE() { return this.#_STORAGE; }
+  }
+
+  const priceList = [
+      // monthly unit prices
+      [2.599, 0.262, 0.041],
+      [2, 4, 0.1],
+      [15.15, 3.579, 0.094],
+      [4, 4, 0.1],
+  ]
+
+  const vCpuInput = document.getElementById('vCpuInput');
+  const vCpuValue = document.getElementById('vCpuValue');
+
+  vCpuInput.addEventListener('input', function () {
+      vCpuValue.textContent = vCpuInput.value;
+      updateAllPrices();
+  });
+
+  const memoryInput = document.getElementById('memoryInput');
+  const memoryValue = document.getElementById('memoryValue');
+
+  memoryInput.addEventListener('input', function () {
+      memoryValue.textContent = memoryInput.value;
+      updateAllPrices();
+  });
+
+  const storageInput = document.getElementById('storageInput');
+  const storageValue = document.getElementById('storageValue');
+
+  storageInput.addEventListener('input', function () {
+      storageValue.textContent = storageInput.value;
+      updateAllPrices();
+  });
 
   var kowabungaImage = new Image();
   kowabungaImage.src = '/images/cost-kowabunga-logo.png';
@@ -25,7 +96,24 @@
   var gcpImage = new Image();
   gcpImage.src = '/images/cost-gcp-logo.png';
 
-  new Chart(ctx, {
+  function updatePrice(idx) {
+      var price = 0.0;
+      price += vCpuInput.value * priceList[idx][Sku.VCPU];
+      price += memoryInput.value * priceList[idx][Sku.MEM];
+      price += storageInput.value * priceList[idx][Sku.STORAGE];
+      priceChart.data.datasets[idx].data = [Math.floor(price * 12)];
+  }
+
+  function updateAllPrices() {
+      var providers = [Provider.KOWABUNGA, Provider.AZURE, Provider.AMAZON, Provider.GOOGLE];
+      for (var idx in providers) {
+          updatePrice(idx);
+      }
+      priceChart.update();
+  }
+
+  const ctx = document.getElementById('priceChart');
+  var priceChart = new Chart(ctx, {
       type: 'bar',
       plugins: [ChartDataLabels],
       data: {
@@ -33,7 +121,7 @@
           datasets: [
               {
                   label: 'Kowabunga',
-                  data: [12],
+                  data: [0],
                   borderWidth: 1,
                   borderRadius: 5,
                   barPercentage: 0.4,
@@ -82,7 +170,6 @@
                   position: 'bottom',
                   labels: {
                       usePointStyle: true,
-                      padding: 10,
                       // maybe switch to https://www.chartjs.org/docs/latest/samples/legend/html.html
                   },
               },
@@ -114,4 +201,5 @@
           }
       }
   });
+  updateAllPrices();
 </script>
