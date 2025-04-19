@@ -1,3 +1,39 @@
 .td-navbar .navbar-brand__name {
   display: none;
 }
+
+@font-face {
+    font-family: "Lithos-Black";
+    src: url("/fonts/lithosblack.eot");
+    src: url("/fonts/lithosblack.eot") format("embedded-opentype"),
+         url("/fonts/lithosblack.woff2")format("woff2"),
+         url("/fonts/lithosblack.woff")format("woff"),
+         url("/fonts/lithosblack.ttf")format("truetype"),
+         url("/fonts/lithosblack.svg")format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.cover-title {
+    text-align: start;
+    text-transform: uppercase;
+    font-family: "Lithos-Black", Calibri, Tahoma, sans-serif;
+}
+
+.cover-title h1 {
+    font-size: 5em;
+}
+
+.cover-title h2 {
+    font-size: 1.4em;
+    text-transform: none;
+    font-family: "Open Sans";
+}
+
+.cover-display {
+    perspective: 1500px;
+}
+
+.cover-picture > * {
+    //transform: rotateY(335deg);
+}
