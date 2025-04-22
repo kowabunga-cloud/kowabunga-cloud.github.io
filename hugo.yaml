@@ -169,18 +169,14 @@ params:
   links:
     # End user relevant links. These will show up on left side of footer and in the community page if you have one.
     user:
-      - name: User mailing list
-        url: https://example.org/mail
+      - name: User Queries
+        url: mailto:info@kowabunga.cloud
         icon: fa fa-envelope
-        desc: Discussion and help from your fellow users
-      - name: Twitter
-        url: https://example.org/twitter
-        icon: fab fa-twitter
-        desc: Follow us on Twitter to get the latest news!
-      - name: Stack Overflow
-        url: https://example.org/stack
-        icon: fab fa-stack-overflow
-        desc: Practical questions and curated answers
+        desc: User Queries
+      - name: Community Forum
+        url: https://kowabunga.discourse.group
+        icon: fab fa-discourse
+        desc: Community Forum
     # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
     developer:
       - name: GitHub
@@ -191,10 +187,10 @@ params:
         url: https://example.org/slack
         icon: fab fa-slack
         desc: Chat with other project developers
-      - name: Developer mailing list
-        url: https://example.org/mail
-        icon: fa fa-envelope
-        desc: Discuss development issues around the project
+      - name: Developer bug tracker
+        url: https://github.com/kowabunga-cloud/kowabunga/issues/new
+        icon: fa fa-bug
+        desc: BugTracker
 
 module:
   hugoVersion:
