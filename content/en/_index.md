@@ -82,9 +82,15 @@ This is the second section
 {{% blocks/section %}}
 Profitability Scale-up
 {.h1 .text-center}
+Savings grow with your project. Costs become clear and predictable.
+{.h4 .text-center}
 <br/><br/>
 
 {{< cost-matrix >}}
+<br/>
+
+*(\*) Kowabunga cost projection is based on OVHCloud BareMetal Scale 3-AZ range.*
+{.h7 .text-center}
 {{% /blocks/section %}}
 
 {{% blocks/section type="row" %}}

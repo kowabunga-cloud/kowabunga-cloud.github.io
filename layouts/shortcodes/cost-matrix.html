@@ -1,21 +1,33 @@
 <div class="row">
   <div class="col-2">
-    <input type="range" class="form-range" id="vCpuInput" min="0" max="100" value="75">
+    <input type="range" class="form-range" id="vCpuInput" min="0" max="500" value="128">
     <br/>
     <br/>
-    <input type="range" class="form-range" id="memoryInput" min="0" max="100">
+    <input type="range" class="form-range" id="memoryInput" min="0" max="2048" value="420">
     <br/>
     <br/>
-    <input type="range" class="form-range" id="storageInput" min="0" max="100">
+    <input type="range" class="form-range" id="storageInput" min="0" max="20" value="5">
+    <br/>
+    <br/>
+    <input type="range" class="form-range" id="interAzInput" min="0" max="100" value="12">
+    <br/>
+    <br/>
+    <input type="range" class="form-range" id="egressInput" min="0" max="50" value="2">
   </div>
   <div class="col-2">
-    <span id="vCpuValue">75</span> vCPUs
+    <span id="vCpuValue">128</span> vCPUs
     <br/>
     <br/>
-    <span id="memoryValue">50</span> GB Memory
+    <span id="memoryValue">420</span> GBs Memory
     <br/>
     <br/>
-    <span id="storageValue">50</span> GB Block Storage
+    <span id="storageValue">5</span> TBs Block Storage
+    <br/>
+    <br/>
+    <span id="interAzValue">12</span> TBs Inter-AZ Traffic
+    <br/>
+    <br/>
+    <span id="egressValue">2</span> TBs Internet Egress
   </div>
   <div class="col-8">
     <canvas id="priceChart"></canvas>
@@ -26,6 +38,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
 <script>
+
   class Provider {
       // Private Fields
       static #_KOWABUNGA = 0;
@@ -45,19 +58,49 @@
       static #_VCPU = 0;
       static #_MEM = 1;
       static #_STORAGE = 2;
+      static #_INTER_AZ = 3;
+      static #_EGRESS = 4;
 
       // Accessors for "get" functions only (no "set" functions)
       static get VCPU() { return this.#_VCPU; }
       static get MEM() { return this.#_MEM; }
       static get STORAGE() { return this.#_STORAGE; }
+      static get INTER_AZ() { return this.#_INTER_AZ; }
+      static get EGRESS() { return this.#_EGRESS; }
   }
 
   const priceList = [
-      // monthly unit prices
-      [2.599, 0.262, 0.041],
-      [2, 4, 0.1],
-      [15.15, 3.579, 0.094],
-      [4, 4, 0.1],
+      /* Monthly unit prices:
+         - Kowabunga on OVH 3-AZ (2x CPU/Memory over-commit ratio):
+           + $ 3.898 / vCPU
+           + $ 0.262 / GB RAM
+           + $ 0.041 / GB Ceph Block Storage
+           + $ 0     / GB Inter-AZ Traffic
+           + $ 0     / GB Egress
+         - Azure Germany West Central
+           + $ 18.92 / vCPU
+           + $ 1.39  / GB RAM
+           + $ 0.181 / GB Managed Disk
+           + $ 0     / GB Inter-AZ Traffic
+           + $ 0.072 / GB Egress
+         - AWS Ireland
+           + $ 15.15 / vCPU
+           + $ 3.579 / GB RAM
+           + $ 0.094 / GB EBS
+           + $ 0.020 / GB Inter-AZ Traffic
+           + $ 0.085 / GB Egress
+         - Google Frankfurt
+           + $ 24.57 / vCPU
+           + $ 3.067 / GB RAM
+           + $ 0.094 / GB Hyperdisk and Persistent Disk
+           + $ 0.020 / GB Inter-AZ Traffic
+           + $ 0.011 / GB Egress
+      */
+
+      [ 3.898, 0.262, 0.041, 0,    0     ],
+      [ 18.92, 1.39,  0.181, 0,    0.072 ],
+      [ 15.15, 3.579, 0.094, 0.02, 0.085 ],
+      [ 24.57, 3.067, 0.094, 0.02, 0.011 ],
   ]
 
   const vCpuInput = document.getElementById('vCpuInput');
@@ -84,23 +127,41 @@
       updateAllPrices();
   });
 
-  var kowabungaImage = new Image();
-  kowabungaImage.src = '/images/cost-kowabunga-logo.png';
+  const interAzInput = document.getElementById('interAzInput');
+  const interAzValue = document.getElementById('interAzValue');
 
-  var azureImage = new Image();
-  azureImage.src = '/images/cost-azure-logo.png';
+  interAzInput.addEventListener('input', function () {
+      interAzValue.textContent = interAzInput.value;
+      updateAllPrices();
+  });
 
-  var awsImage = new Image();
-  awsImage.src = '/images/cost-aws-logo.png';
+  const egressInput = document.getElementById('egressInput');
+  const egressValue = document.getElementById('egressValue');
 
-  var gcpImage = new Image();
-  gcpImage.src = '/images/cost-gcp-logo.png';
+  egressInput.addEventListener('input', function () {
+      egressValue.textContent = egressInput.value;
+      updateAllPrices();
+  });
+
+  // var kowabungaImage = new Image();
+  // kowabungaImage.src = '/images/cost-kowabunga-logo.png';
+
+  // var azureImage = new Image();
+  // azureImage.src = '/images/cost-azure-logo.png';
+
+  // var awsImage = new Image();
+  // awsImage.src = '/images/cost-aws-logo.png';
+
+  // var gcpImage = new Image();
+  // gcpImage.src = '/images/cost-gcp-logo.png';
 
   function updatePrice(idx) {
       var price = 0.0;
       price += vCpuInput.value * priceList[idx][Sku.VCPU];
       price += memoryInput.value * priceList[idx][Sku.MEM];
-      price += storageInput.value * priceList[idx][Sku.STORAGE];
+      price += storageInput.value * priceList[idx][Sku.STORAGE] * 1024;
+      price += interAzInput.value * priceList[idx][Sku.INTER_AZ] * 1024;
+      price += egressInput.value * priceList[idx][Sku.EGRESS] * 1024;
       priceChart.data.datasets[idx].data = [Math.floor(price * 12)];
   }
 
@@ -120,14 +181,14 @@
           labels: [''],
           datasets: [
               {
-                  label: 'Kowabunga',
+                  label: 'Kowabunga (*)',
                   data: [0],
                   borderWidth: 1,
                   borderRadius: 5,
                   barPercentage: 0.4,
                   borderColor: 'rgba(116, 196, 100, 1)',
                   backgroundColor: 'rgba(116, 196, 100, 1)',
-                  pointStyle: kowabungaImage,
+                  pointStyle: 'circle', //kowabungaImage,
               },
               {
                   label: 'Azure',
@@ -137,7 +198,7 @@
                   barPercentage: 0.4,
                   borderColor: 'rgba(76, 141, 227, 1)',
                   backgroundColor: 'rgba(76, 141, 227, 1)',
-                  pointStyle: azureImage,
+                  pointStyle: 'circle', //azureImage,
               },
               {
                   label: 'Amazon',
@@ -147,7 +208,7 @@
                   barPercentage: 0.4,
                   borderColor: 'rgba(244, 181, 63, 1)',
                   backgroundColor: 'rgba(244, 181, 63, 1)',
-                  pointStyle: awsImage,
+                  pointStyle: 'circle', //awsImage,
 
               },
               {
@@ -158,7 +219,7 @@
                   barPercentage: 0.4,
                   borderColor: 'rgba(222, 84, 52, 1)',
                   backgroundColor: 'rgba(222, 84, 52, 1)',
-                  pointStyle: gcpImage,
+                  pointStyle: 'circle', //gcpImage,
               },
 
           ]
@@ -186,8 +247,15 @@
                   borderWidth: 1,
                   borderRadius: 5,
                   clip: false,
+                  labels: {
+                      title: {
+                          font: {
+                              weight: 'bold'
+                          }
+                      }
+                  },
                   formatter: function(value, context) {
-                      return value + ' $/y';
+                      return '$ ' + value + '/yr';
                   }
               }
           },
