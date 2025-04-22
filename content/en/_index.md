@@ -41,10 +41,10 @@ Full private-cloud on-premises readiness and ability to run on commodity hardwar
 **Keep control of your TCO.**
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-dumbbell" title="Resilient & Features-Rich" %}}
-Kowabunga enables highly-available designs, across multiple data centers and availability zones and brings automated software-as-a-service.
+{{% blocks/feature icon="fa-handshake" title="Free ... as a beer" %}}
+We believe in free software, with no feature limitation. Kowabunga comes all-in. There's no freemium or premium version. There's no per-host or per-cores licensing model either. Software is free and always will be.
 
-**Shorten application development and setup times.**
+**No Runtime Licensing Fees.**
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa-lock-open" title="No Vendor-Locking" %}}
@@ -53,10 +53,22 @@ Harness the potential of Open-Source software stack as a backend: no third-party
 **Technical choices remain yours and yours only.**
 {{% /blocks/feature %}}
 
+{{% blocks/feature icon="fa-dumbbell" title="Resilient & Features-Rich" %}}
+Kowabunga enables highly-available designs, across multiple data centers and availability zones and brings automated software-as-a-service.
+
+**Shorten application development and setup times.**
+{{% /blocks/feature %}}
+
 {{% blocks/feature icon="fa-brands fa-osi" title="Open Source … by nature" %}}
 Kowabunga itself is OpenSource, from API to client and server-side components. We have nothing to hide but everything to contribute.
 
 **We believe in mutual trust.**
+{{% /blocks/feature %}}
+
+{{% blocks/feature icon="fa-hand-holding-heart" title="Made with Love" %}}
+Kowabunga is developed by passionate people. We aim at designing the best software possible. We're strong believers that open-source software is world's heritage and only human expertise and service has value.
+
+**Kowabunga lives from sponsoring only.**
 {{% /blocks/feature %}}
 
 {{% /blocks/section %}}
