@@ -61,7 +61,7 @@ I've been in tech-industry long enough to see various 'tech-bubbles', startups a
 
 Kowabunga is realistically not the best-written software in the world, nor the most performant, and it doesn't come with marketing superlatives to overcome all biased information from the various Cloud hyperscalers but it's Free & Open Source Software, made with love, by passionnate people who's only interest is to create the best platform possible and simplify your IT day-to-day with a mastered, cost-effective and predictable way.
 
-It is enterprise-ready and production-grade and will help you take back in control of what's rightfully yours."
+It is enterprise-ready and production-grade and will help you take back control of what's rightfully yours."
 
 *Benjamin Zores, Kowabunga original author*
 
