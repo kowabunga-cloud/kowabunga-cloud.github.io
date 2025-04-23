@@ -173,20 +173,22 @@ params:
         url: mailto:info@kowabunga.cloud
         icon: fa fa-envelope
         desc: User Queries
-      - name: Community Forum
-        url: https://kowabunga.discourse.group
-        icon: fab fa-discourse
-        desc: Community Forum
+      # - name: Community Forum
+      #   url: https://kowabunga.discourse.group
+      #   icon: fab fa-discourse
+      #   desc: Community Forum
+      #   # see https://free.discourse.group/ for subscription
     # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
     developer:
       - name: GitHub
         url: https://github.com/kowabunga-cloud
         icon: fab fa-github
         desc: Development takes place here!
-      - name: Slack
-        url: https://example.org/slack
-        icon: fab fa-slack
-        desc: Chat with other project developers
+      # - name: Slack
+      #   url: https://example.org/slack
+      #   icon: fab fa-slack
+      #   desc: Chat with other project developers
+      #   # see https://slack.com/pricing for subscription
       - name: Developer bug tracker
         url: https://github.com/kowabunga-cloud/kowabunga/issues/new
         icon: fa fa-bug
