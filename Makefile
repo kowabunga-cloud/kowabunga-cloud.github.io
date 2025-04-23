@@ -21,4 +21,7 @@ preview: setup
 .PHONY: dist
 dist: setup
 	$Q $(HUGO) --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic
-	#$Q find public -type f -exec chmod a+w {} \;
+	$Q find public -type f -exec chmod a+w {} \;
+
+clean:
+	$Q rm -rf public
