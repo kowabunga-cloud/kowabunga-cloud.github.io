@@ -41,7 +41,7 @@ Full private-cloud on-premises readiness and ability to run on commodity hardwar
 **Keep control of your TCO.**
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-handshake" title="Free ... as a beer" %}}
+{{% blocks/feature icon="fa-handshake" title="Free ... as in beer" %}}
 We believe in free software, with no feature limitation. Kowabunga comes all-in. There's no freemium or premium version. There's no per-host or per-cores licensing model either. Software is free and always will be.
 
 **No Runtime Licensing Fees.**
