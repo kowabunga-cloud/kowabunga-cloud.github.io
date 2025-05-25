@@ -97,16 +97,6 @@ Kowabunga provides the **orchestration platform** you need to **self-operate and
 
 {{% /blocks/titledsection %}}
 
-{{% blocks/section %}}
-Profitability Scale-up
-{.h1 .text-center}
-Savings grow with your project. Costs become clear and predictable.
-{.h4 .text-center}
-<br/><br/>
-
+{{% blocks/titledsection title="Profitability Scale-up" subtitle="Savings grow with your project. Costs become clear and predictable." footer="*(\*) Kowabunga cost projection is based on OVHCloud BareMetal Scale 3-AZ range.*"%}}
 {{< cost-matrix >}}
-<br/>
-
-*(\*) Kowabunga cost projection is based on OVHCloud BareMetal Scale 3-AZ range.*
-{.h7 .text-center}
-{{% /blocks/section %}}
+{{% /blocks/titledsection %}}

@@ -11,11 +11,17 @@
   {{- .Get "subtitle" | markdownify -}}
 </h4>
 <br/>
+<br/>
+<br/>
 <div class="col">
 <div class="{{ $type }}">
   {{/* Do NOT remove this comment! It ends the HTML block above. See https://spec.commonmark.org/0.30/#html-blocks, 7. */}}
 {{ .Inner -}}
 </div>
 </div>
+<br/><br/>
+<h7 class="h7 text-center">
+  {{- .Get "footer" | markdownify -}}
+</h7>
 </section>
 {{/**/ -}}
