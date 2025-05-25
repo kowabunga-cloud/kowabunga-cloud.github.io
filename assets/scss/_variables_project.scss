@@ -14,26 +14,15 @@
     font-style: normal;
 }
 
-.cover-title {
+.cover-title .display-1 {
     text-align: start;
     text-transform: uppercase;
     font-family: "Lithos-Black", Calibri, Tahoma, sans-serif;
-}
-
-.cover-title h1 {
-    font-size: 5em;
+    font-size: calc(100vw * 40%);
 }
 
 .cover-title h2 {
-    font-size: 1.4em;
+    font-size: 2em;
     text-transform: none;
     font-family: "Open Sans";
-}
-
-.cover-display {
-    perspective: 1500px;
-}
-
-.cover-picture > * {
-    //transform: rotateY(335deg);
 }

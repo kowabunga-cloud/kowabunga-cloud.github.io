@@ -2,30 +2,16 @@
 title: Kowabunga
 ---
 
-{{< blocks/cover title="" image_anchor="top" height="full" >}}
-<div class="row justify-content-start">
-  <div class="col-6">
-    <div class="cover-title">
-      <h1>Your<br/>Private<br/> Platform</h1>
-      <h2>Complete <b>infrastructure automation</b> suite to <b>orchestrate</b> virtual resources management automation on <b>privately-owned</b> commodity hardware.</h2>
-    </div>
-    <br/>
-    <a class="btn btn-lg btn-primary me-3 mb-4" href="/features/">
-    Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
-    </a>
-    <a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/kowabunga-cloud">
-    Download <i class="fab fa-github ms-2 "></i>
-    </a>
-  </div>
-  <div class="col-6 cover-display">
-    <div class="cover-picture">
-      <img src="/images/cover-tf.png" class="img-fluid">
-    </div>
-  </div>
-</div>
+{{< blocks/maincover title="Your Private Platform" subtitle="Complete **infrastructure automation** suite to **orchestrate** virtual resources management automation on **privately-owned** commodity hardware." image_anchor="top" height="full" cover="/images/cover-tf.png">}}
+<a class="btn btn-lg btn-primary me-3 mb-4" href="/features/">
+Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
+</a>
+<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/kowabunga-cloud">
+Download <i class="fab fa-github ms-2 "></i>
+</a>
 <br/>
 {{< blocks/link-down color="info" >}}
-{{< /blocks/cover >}}
+{{< /blocks/maincover >}}
 
 
 {{% blocks/lead color="primary" %}}
