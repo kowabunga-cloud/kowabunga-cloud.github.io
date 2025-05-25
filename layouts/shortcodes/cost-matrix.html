@@ -1,34 +1,51 @@
 <div class="row">
-  <div class="col-lg-2 mb-5 mb-lg-0">
-    <input type="range" class="form-range" id="vCpuInput" min="0" max="500" value="128">
+  <div class="col-lg-4 mb-5 mb-lg-0">
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <input type="range" class="form-range" id="vCpuInput" min="0" max="500" value="128">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 text-center">
+        <span id="vCpuValue">128</span> vCPUs
+      </div>
+    </div>
     <br/>
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <input type="range" class="form-range" id="memoryInput" min="0" max="2048" value="420">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 text-center">
+        <span id="vCpuValue">420</span> GBs Memory
+      </div>
+    </div>
     <br/>
-    <input type="range" class="form-range" id="memoryInput" min="0" max="2048" value="420">
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <input type="range" class="form-range" id="storageInput" min="0" max="20" value="5">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 text-center">
+        <span id="storageValue">5</span> TB Block Storage
+      </div>
+    </div>
     <br/>
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <input type="range" class="form-range" id="interAzInput" min="0" max="100" value="12">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 text-center">
+        <span id="interAzValue">5</span> TBs Inter-AZ Traffic
+      </div>
+    </div>
     <br/>
-    <input type="range" class="form-range" id="storageInput" min="0" max="20" value="5">
-    <br/>
-    <br/>
-    <input type="range" class="form-range" id="interAzInput" min="0" max="100" value="12">
-    <br/>
-    <br/>
-    <input type="range" class="form-range" id="egressInput" min="0" max="50" value="2">
+    <div class="row">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <input type="range" class="form-range" id="egressInput" min="0" max="50" value="2">
+      </div>
+      <div class="col-lg-6 mb-5 mb-lg-0 text-center">
+        <span id="egressValue">2</span> TBs Internet Egress
+      </div>
+    </div>
   </div>
-  <div class="col-lg-2 mb-5 mb-lg-0 text-center">
-    <span id="vCpuValue">128</span> vCPUs
-    <br/>
-    <br/>
-    <span id="memoryValue">420</span> GBs Memory
-    <br/>
-    <br/>
-    <span id="storageValue">5</span> TBs Block Storage
-    <br/>
-    <br/>
-    <span id="interAzValue">12</span> TBs Inter-AZ Traffic
-    <br/>
-    <br/>
-    <span id="egressValue">2</span> TBs Internet Egress
-  </div>
+
   <div class="col-lg-8 mb-5 mb-lg-0">
     <canvas id="priceChart"></canvas>
   </div>
@@ -226,6 +243,7 @@
       },
       options: {
           reponsive: true,
+          maintainAspectRatio: false,
           plugins: {
               legend: {
                   position: 'bottom',
