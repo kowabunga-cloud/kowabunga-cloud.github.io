@@ -1,0 +1,7 @@
+{{ $textstyle := .Get "textstyle" | default "text-center" -}}
+
+<div class="col-lg-6 mb-5 mb-lg-0 {{ $textstyle }}">
+<div class="mb-0">
+{{ .Inner }}
+</div>
+</div>

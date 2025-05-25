@@ -74,32 +74,28 @@ Kowabunga is developed by passionate people. We aim at designing the best softwa
 {{% /blocks/section %}}
 
 
-{{% blocks/section %}}
-With Great Power Comes Great Responsibility
-{.h1 .text-center}
+{{% blocks/titledsection title="With Great Power Comes Great Responsibility" %}}
 
-<br/>
-<br/>
+{{% blocks/twopanes %}}
+{{< blocks/img src="/images/Maslow.svg" >}}
+{{% /blocks/twopanes %}}
 
-<div class="row justify-content-start">
-  <div class="col-6">
-    <img src="/images/Maslow.svg"/>
-  </div>
-  <div class="col-6">
-  You've create the best new app ever, with all possible killer features ?
-  <br/><br/>
-  That's awesome !
-  <br/><br/>
-  But can the underlying backbone be trusted ?
-  <br/><br/>
-  Post MVP stage, it is now time to scale up your business and user base.
-  <br/><br/>
-  Kowabunga provides the <b>orchestration platform</b> you need to <b>self-operate and manage</b> the whole chain.
-  <br/><br/>
-  <b>Take back control of what's rightfully yours !</b>
-  </div>
-</div>
-{{% /blocks/section %}}
+{{% blocks/twopanes textstyle="justify-content-start"%}}
+You've created the best new app ever, with all possible killer features ?
+
+That's awesome !
+
+But can the underlying backbone be trusted ?
+
+Post MVP stage, it is now time to scale up your business and user base.
+
+Kowabunga provides the **orchestration platform** you need to **self-operate and manage** the whole chain.
+
+**Take back control of what's rightfully yours !**
+
+{{% /blocks/twopanes %}}
+
+{{% /blocks/titledsection %}}
 
 {{% blocks/section %}}
 Profitability Scale-up
