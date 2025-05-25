@@ -16,7 +16,7 @@ run: setup
 
 .PHONY: preview
 preview: setup
-	$Q $(HUGO) server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify
+	$Q $(HUGO) server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify --bind 0.0.0.0
 
 .PHONY: dist
 dist: setup
