@@ -76,7 +76,6 @@ jobs:
           path: |
             ${{ runner.temp }}/hugo_cache
           key: ${{ steps.cache-restore.outputs.cache-primary-key }}
-      - run: sed -i 's%kowabunga-cloud\.github\.io%www.kowabunga.cloud%g' public/sitemap.xml
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

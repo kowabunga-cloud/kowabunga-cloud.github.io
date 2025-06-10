@@ -1,4 +1,4 @@
-baseURL: https://www.kowabunga.cloud
+baseURL: 'https://www.kowabunga.cloud'
 title: Kowabunga
 
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
