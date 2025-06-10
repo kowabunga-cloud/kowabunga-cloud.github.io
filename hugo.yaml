@@ -1,5 +1,5 @@
 baseURL: 'https://www.kowabunga.cloud'
-title: Kowabunga
+title: 'Kowabunga: Your Private Platform'
 
 services:
   googleAnalytics:
@@ -61,7 +61,10 @@ languages:
     languageName: English
     title: Kowabunga
     params:
-      description: Home of Kowabunga Project
+      description: >
+        Home of Kowabunga Project.
+        Kowabunga is an SD-WAN and HCI (Hyper-Converged Infrastructure) Orchestration Engine.
+        Kowabunga provides DevOps with a complete infrastructure automation suite to orchestrate virtual resources management automation on privately-owned commodity hardware.
 
 markup:
   goldmark:

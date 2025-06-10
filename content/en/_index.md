@@ -1,5 +1,10 @@
 ---
-title: Kowabunga
+title: 'Kowabunga: Your Private Platform'
+description: >
+  Home of Kowabunga Project.
+  Kowabunga is an SD-WAN and HCI (Hyper-Converged Infrastructure) Orchestration Engine.
+  Kowabunga provides DevOps with a complete infrastructure automation suite to orchestrate virtual resources management automation on privately-owned commodity hardware.
+
 ---
 
 {{< blocks/maincover title="Your Private Platform" subtitle="Complete **infrastructure automation** suite to **orchestrate** virtual resources management automation on **privately-owned** commodity hardware." image_anchor="top" height="full" cover="/images/cover-tf.png">}}
