@@ -1,6 +1,15 @@
 baseURL: 'https://www.kowabunga.cloud'
 title: Kowabunga
 
+services:
+  googleAnalytics:
+    id: G-0FFSLH237F
+
+privacy:
+  googleAnalytics:
+    disable: false
+    respectDoNotTrack: false
+
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
 
 # Language settings
