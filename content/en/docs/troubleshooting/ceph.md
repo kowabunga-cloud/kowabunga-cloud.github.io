@@ -9,7 +9,7 @@ Kaktus HCI nodes rely on [Ceph](https://ceph.io/en/) for underlying distributed 
 Ceph provides both:
 
 - RBD block-device images for **Kompute** virtual instances
-- CephFS distributed file system for **Kylo** storage.
+- CephFS distributed file system for [Kylo](/docs/services/kylo/) storage.
 
 Ceph is awesome. Ceph is fault-tolerant. Ceph hashes your file objects into thousands of pieces, distributed and replicated over dozens if not hundreds of SSDs on countless machines. And yet, Ceph sometimes crashes or fails to recover (even though it has incredible self healing capabilities).
 
@@ -110,13 +110,13 @@ If you suspect the filesystem's to be damaged, first thing to do is to preserve 
 
 Start by stopping all CephFs clients, if under control.
 
-For Kowabunga, that means stopping NFS Ganesha server on all Kaktus instances:
+For Kowabunga, that means stopping NFS Ganesha server on all [Kaktus](/docs/concepts/kaktus/) instances:
 
 ```sh
 $ sudo systemctl stop nfs-ganesha
 ```
 
-Prevent all client connections from server-side (i.e. Kaktus).
+Prevent all client connections from server-side (i.e. [Kaktus](/docs/concepts/kaktus/)).
 
 We consider that filesystem name is **nfs**:
 
@@ -128,7 +128,7 @@ $ ceph fs set nfs refuse_client_session true
 $ ceph fs set nfs down true
 ```
 
-Stop server-side MDS instances on all Kaktus servers:
+Stop server-side MDS instances on all [Kaktus](/docs/concepts/kaktus/) servers:
 
 ```sh
 $ sudo systemctl stop ceph-mds@$(hostname)
@@ -188,7 +188,7 @@ $ ceph osd blocklist ls
 
 There should be no entry anymore.
 
-Start server-side MDS instances on all Kaktus servers:
+Start server-side MDS instances on all [Kaktus](/docs/concepts/kaktus/) servers:
 
 ```sh
 $ sudo systemctl start ceph-mds@$(hostname)
@@ -206,7 +206,7 @@ $ ceph config set mds mds_deny_all_reconnect false
 
 Start back all CephFs clients, if under control.
 
-For Kowabunga, that means starting NFS Ganesha server on all Kaktus instances:
+For Kowabunga, that means starting NFS Ganesha server on all [Kaktus](/docs/concepts/kaktus/) instances:
 
 ```sh
 $ sudo systemctl start nfs-ganesha
