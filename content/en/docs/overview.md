@@ -4,12 +4,6 @@ description: How can Kowabunga sustain your applications hosting ?
 weight: 1
 ---
 
-{{% pageinfo %}}
-
-This is a placeholder page that shows you how to use this template site.
-
-{{% /pageinfo %}}
-
 ## What is it ?
 
 **Kowabunga** is an [SD-WAN](https://en.wikipedia.org/wiki/SD-WAN) and [HCI](https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) (Hyper-Converged Infrastructure) Orchestration Engine.
@@ -20,6 +14,22 @@ It brings the best of both worlds:
 
 - Cloud API, automation, infrastructure-as-code, X-as-a-service ...
 - On-Premises mastered and predictable flat-rate hardware.
+
+## The Problem
+
+{{% pageinfo %}}
+**Cloud Services are unnecessarily expensive and come with vendor-locking.**
+{{% /pageinfo %}}
+
+*"Cloud computing is basically renting computers, instead of owning and operating your own server hardware. From the start, companies that offer cloud services have promised simplicity and cost savings. Basecamp has had one foot in the cloud for well over a decade, and HEY has been running there exclusively since it was launched two years ago. We’ve run extensively in both Amazon’s cloud and Google’s cloud, but the savings promised in reduced complexity never materialized. So we’ve left.*
+
+*The rough math goes like this: We spent $3.2m on cloud in 2022.The cost of rack space and new hardware is a total of **$840,000 per year**.*
+
+***Leaving the cloud will save us $7 million over five years.***
+
+*At a time when so many companies are looking to cut expenses, saving millions through hosting expenses sounds like a better first move than the rounds of layoffs that keep coming."*
+
+[Basecamp by 37signals](https://basecamp.com/cloud-exit)
 
 ## Why Kowabunga ?
 
