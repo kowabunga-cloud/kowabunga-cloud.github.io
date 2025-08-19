@@ -4,7 +4,7 @@ description: Kowabunga Internet Gateway
 weight: 4
 ---
 
-**Kawaii** is your project's private Internet Gateway, with complete ingress/egress control.
+**Kawaii** is your project's private Internet Gateway, with complete ingress/egress control. It stands for **K**owabunga **A**daptive **WA**n **I**ntelligent **I**nterface (if you have better ideas, we're all ears ;-) ).
 
 It is the network gateway to your private network. All **Kompute** (and other services) instances always use **Kawaii** as their default gateway, relaying all traffic.
 
