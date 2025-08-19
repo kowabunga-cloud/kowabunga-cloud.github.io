@@ -12,13 +12,13 @@ Local data centers consist of a bunch of physical machines (can range from perso
 
 From an IT and assets management's perspective, one simply needs to ensure they run and, capacity planning in mind, that they do offer enough physical resources to sustain future applications hosting needs.
 
-On each data-center, some physical machines (usually lightweight) will be dedicated to providing networking kind of services, through Kowabunga's **Kiwi** agents, while others will providing computing and storage capabilities, thanks to Kowabunga's **Kaktus** agents.
+On each data-center, some physical machines (usually lightweight) will be dedicated to providing networking kind of services, through Kowabunga's [Kiwi](/docs/concepts/kiwi/) agents, while others will providing computing and storage capabilities, thanks to Kowabunga's [Kaktus](/docs/concepts/kaktus/) agents.
 
 ![](concept.png)
 
-The Kowabunga project then come with **Kahuna**, its orchestration engine. This is the masterpiece cornerstone of your architecture. Kahuna act as a maestro, providing API servicess for admins and end-users, and provising and controlling virtual resources on the various data-centers through Kowabunga connected agents.
+The Kowabunga project then come with [Kahuna](/docs/concepts/kahuna/), its orchestration engine. This is the masterpiece cornerstone of your architecture. Kahuna act as a maestro, providing API servicess for admins and end-users, and provising and controlling virtual resources on the various data-centers through Kowabunga connected agents.
 
-Ultimately, DevOps consumers will only ever interface with **Kahuna**.
+Ultimately, DevOps consumers will only ever interface with [Kahuna](/docs/concepts/kahuna/).
 
 So, how does magic happen ?
 
@@ -32,10 +32,10 @@ So, how does magic happen ?
 
 So, let's rewind, the Kowabunga projects consists of multiple core components:
 
-- **Kahuna**: the core orchestration system. Remotely controls every resource and maintains ecosystem consistent. Gateway to the Kowabunga REST API.
-- **Kaktus**: the HCI node(s). Provides KVM-based virtual computing hypervisor with Ceph-based distributed storage services.
-- **Kiwi**: the SD-WAN node(s). Provides various network services like routing, firewall, DHCP, DNS, VPN, peering (with active-passive failover).
-- **Koala**: the WebUI. Allows for day-to-day supervision and operation of the various projects and services.
+- [Kahuna](/docs/concepts/kahuna/): the core orchestration system. Remotely controls every resource and maintains ecosystem consistent. Gateway to the Kowabunga REST API.
+- [Kaktus](/docs/concepts/kaktus/): the HCI node(s). Provides KVM-based virtual computing hypervisor with Ceph-based distributed storage services.
+- [Kiwi](/docs/concepts/kiwi/): the SD-WAN node(s). Provides various network services like routing, firewall, DHCP, DNS, VPN, peering (with active-passive failover).
+- [Koala](/docs/concepts/koala/): the WebUI. Allows for day-to-day supervision and operation of the various projects and services.
 
 Aside from these, Kowabunga introduces the concept of:
 
@@ -93,5 +93,5 @@ But aside from cost, Kowabunga has been developed by and for DevOps, the ones wh
 {{% alert color="success" title="Tips for Managed Services Provider" %}}
 If you're acting as a **Managed Services Provider** (MSP) having to sustain various applications for dozens if not hundreds of customers, **Kowabunga** might come in handy.
 
-Simply picture your various customer on-premises data-centers as Kowabunga regions. All autonomous, un-aware of each others, non-exposed to Internet (hello IT !), yet fully remotely manageable in a single unique way, thanks to **Kahuna**'s orchestration !
+Simply picture your various customer on-premises data-centers as Kowabunga regions. All autonomous, un-aware of each others, non-exposed to Internet (hello IT !), yet fully remotely manageable in a single unique way, thanks to [Kahuna](/docs/concepts/kahuna/)'s orchestration !
 {{% /alert %}}
