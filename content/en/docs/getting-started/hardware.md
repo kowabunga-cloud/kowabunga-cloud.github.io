@@ -60,10 +60,10 @@ Now, let's consider you want to achieve 128 TB usable disk space. At first, you 
 
 Here are different options to achieve it:
 
-- 1 server with 24x 16TB SSDs
-- 3 servers with 8x 16TB SSDs
-- 3 servers with 16x 8TB SSDs
-- 8 servers with 6x 8TB SSDs
+- 1 server with 24x 16TB SSDs each
+- 3 servers with 8x 16TB SSDs each
+- 3 servers with 16x 8TB SSDs each
+- 8 servers with 6x 8TB SSDs each
 - [...]
 
 From a purely resilient perspective, last option would be the best. It provides the more machines, with the more disks, meaning that if anything happens, the smallest fraction of data from the cluster will be lost. Lost data is possibly only ephemeral (time for server or disk to be brought up again). But while down, Ceph will try to re-copy data from duplicated fragments to other disks, inducing a major private network bandwidth usage. Now whether you only have 8 TB of data to be recovered or 128 TB may have a very different impact.
@@ -74,8 +74,8 @@ So let's recap ...
 
 Typical **Kaktus** instances for home labs or sandbox environments would look like:
 
-- 8-cores (16-threads) CPUs.
-- 32 GB RAM.
+- 4-cores (8-threads) CPUs.
+- 16 GB RAM.
 - 2x 1TB SATA or NVMe SSDs (shared between OS partition and Ceph ones)
 - 1 Gbps NIC
 
