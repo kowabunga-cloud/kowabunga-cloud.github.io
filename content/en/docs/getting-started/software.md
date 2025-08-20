@@ -26,7 +26,7 @@ At runtime, it'll also make sure you're **OpenTofu** / **Ansible** toolchain is 
 Kowabunga comes with a ready-to-consumed platform template. One can clone it from Git through:
 
 ```sh
-$ git clone https://
+$ git clone https://github.com/kowabunga-cloud/platform-template.git
 ```
 
 or better, fork it in your own account, as a boostraping template repository.

@@ -72,7 +72,13 @@ resource "cloudflare_dns_record" "kowabunga" {
 }
 ```
 
-and run OpenTofu through:
+initialize OpenTofu  (once, or each time you add a new provider):
+
+```sh
+$ kobra tf init
+```
+
+and apply infrastructure changes:
 
 ```sh
 $ kobra tf apply
