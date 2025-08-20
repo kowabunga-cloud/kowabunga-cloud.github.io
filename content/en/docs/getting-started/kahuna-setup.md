@@ -289,4 +289,4 @@ After a few minutes, if everything's went okay, you should have a working **Kahu
 - The [Kahuna](/docs/concepts/kahuna/) backend server itself, our core orchestrator.
 - Optionally, [MongoDB](https://www.mongodb.com/) database.
 
-We're now ready for [admin provisionning](/docs/getting-started/create-region/) !
+We're now ready for [provisionning users and teams](/docs/getting-started/provision-users/) !
