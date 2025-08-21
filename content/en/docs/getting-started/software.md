@@ -21,6 +21,32 @@ Anything can be done without **Kobra**, but it makes things simpler, not having 
 
 At runtime, it'll also make sure you're **OpenTofu** / **Ansible** toolchain is properly set on your computer, and will do so otherwise (i.e. brainless setup).
 
+Installation can be easily performed on various targets:
+
+### Installation Ubuntu Linux
+
+Register [Kowabunga APT repository](https://packages.kowabunga.cloud/) and then simply:
+
+```sh
+$ sudo apt-get install kobra
+```
+
+### Installation on macOS
+
+macOS can install **Kobra** through [Homebrew](https://brew.sh/). Simply do:
+
+```sh
+$ brew tap kowabunga/cloud https://github.com/kowabunga-cloud/homebrew-tap.git
+$ brew update
+$ brew install kobra
+```
+
+### Manual Installation
+
+**Kobra** can be manually installed through [released binaries](https://github.com/kowabunga-cloud/kobra/releases).
+
+Just download and extract the tarball for your target.
+
 ## Setup Git Repository
 
 Kowabunga comes with a ready-to-consumed platform template. One can clone it from Git through:
