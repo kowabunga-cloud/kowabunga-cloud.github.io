@@ -1,7 +1,7 @@
 ---
 title: Setup Kahuna
 description: Let's start with the orchestration core
-weight: 3
+weight: 4
 ---
 
 Now let's suppose that you've cloned the Git platform repository template and that your **Kahuna** instance server has been provisioned with latest Ubuntu LTS distribution. Be sure that it is SSH-accessible with some local user.

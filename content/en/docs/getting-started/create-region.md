@@ -1,7 +1,7 @@
 ---
 title: Create Your First Region
 description: Let's setup a new region and its Kiwi and Kaktus instances
-weight: 5
+weight: 6
 ---
 
 Orchestrator being ready, we can now boostrap our first region.

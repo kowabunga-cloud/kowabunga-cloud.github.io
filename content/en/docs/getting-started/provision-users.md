@@ -1,7 +1,7 @@
 ---
 title: Provisioning Users
 description: Let's populate admin users and teams
-weight: 4
+weight: 5
 ---
 
 Your **Kahuna** instance is now up and running, let's get things and create a few admin users accounts. At first, we only have the super-admin API key that was previously set through Ansible deployment. We'll make use of it to provision further users and associated teams. After all, we want a nominative user acount for each contributor, right ?
