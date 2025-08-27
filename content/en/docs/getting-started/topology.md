@@ -6,7 +6,7 @@ weight: 3
 
 Let's use this sample network topology for the rest of this tutorial:
 
-![](/docs/getting-started/network-topology.png)
+![Network Topology](/images/network-topology.png#center)
 
 We'll start with a single **Kahuna** instance, with public Internet exposure. The instance's hostname will be **kowabunga-kahuna-1** and it has 2 network adapters and associated IP addresses:
 

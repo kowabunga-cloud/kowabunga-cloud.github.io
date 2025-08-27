@@ -4,7 +4,7 @@ description: Learn about Kaktus HCI node.
 weight: 6
 ---
 
-**Kaktus** stands for **K**owabunga **A**ffordable **K**vm and **TU**rnkey **S**torage (!!), basically, our Hyper-Converged Infrastructure (HCI) node.
+**Kaktus** stands for **K**owabunga **A**mazing **K**VM and **TU**rnkey **S**torage (!!), basically, our Hyper-Converged Infrastructure (HCI) node.
 
 While large virtualization systems such as VMware usually requires you to dedicate servers as computing hypervisors (with plenty of CPU and memory) and associate them with remote, extensive NAS or vSAN, providing storage, Kowabunga follows the opposite approach. Modern hardware is powerful enough to handle both computing and storage.
 
@@ -21,7 +21,16 @@ If you're already ordering a heavy computing rackable server, extending it with 
 - several local disks, to be part of a region-global [Ceph](https://ceph.io/en/) distributed storage cluster.
 - the **Kowabunga Kaktus agent**, connected to **Kahuna**
 
-**Kaktus agent** controls the local **KVM** hypervisor through **libvirt** backend and the local-network distributed **Ceph** storage, allowing management of virtual machines and disks.
+From a pure low-level software perspective, our virtualization stack relies on 3 stacks:
+
+- **Linux Network Bridging driver**, for virtual interfaces access to host raw network interfaces and physical network.
+- **Linux KVM driver**, for CPU VT-X extension support and improved virtualization performances.
+- **RBD (Rados Block Device) driver**, for storing virtual block devices under distributed Ceph storage engine.
+QEMU drives these different backends to virtualize resources on to.
+
+![Kaktus Topology](/images/kaktus.png#center)
+
+Now **QEMU** being a local host process to be spawned, we need some kind of orchestration layer on top of that. Here comes **libvirt**. libvirt provides an API over TCP/TLS/SSH that wraps virtual machines definition over an XML representation that can be fully created/updated/destroyed remotely, controlling **QEMU** underneath. **Kaktus agent** controls the local **KVM** hypervisor through **libvirt** backend and the local-network distributed **Ceph** storage, allowing management of virtual machines and disks.
 
 {{< alert color="success" title="Note" >}}
 When configured for production-systems, Ceph storage cluster will be backed by cross-zones N-times (usually 3) replicated high-performance block devices, providing virtually infinitely scalable and resizeable disk volumes with byte-precision.

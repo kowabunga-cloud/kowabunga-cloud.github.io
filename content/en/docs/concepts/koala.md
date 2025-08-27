@@ -6,7 +6,7 @@ weight: 4
 
 **Koala** is Kowabunga's WebUI. It allows for day-to-day supervision and operation of the various projects and services.
 
-![](/docs/concepts/koala.png)
+![Koala](/images/koala.png#center)
 
 But should you ask a senior DevOps / SRE / IT admin, fully automation-driven, he'd damn anyone who'd have used the Web client to manually create/edit resources and messes around his perfecly maintained CasC.
 
