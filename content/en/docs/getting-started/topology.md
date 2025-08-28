@@ -17,6 +17,7 @@ Next is the main (and only) region, **EU-WEST** and its single zone, **EU-WEST-A
 
 All instances will be connected under the same L2 network layer (as defined in requirements) and we'll use different VLANs and associated network subnets to isolate content:
 
+- **VLAN 0** (i.e. no VLAN) will be used as public segment, with associated RIPE block **4.5.6.0/26**. All **Kaktus** instances will be able to bind these public IPs and translate those to **Kompute** virtual machine instances through bridged network adapters.
 - **VLAN101** will be used as default, administration VLAN, with associated **10.50.101.0/24** subnet. All **Kiwi** and **Kaktus** instances will be part of.
 - **VLAN102** will be used for Ceph backpanel, with associated **10.50.102.0/24** subnet. While not mandatory, this allows differentiating the administrative control plane traffic from pure storage cluster data synchronization. This allows for better traffic shaping and monitoring, if ever needs be. Note that on enterprise-grade production systems, Ceph project would recommend to use dedicated NIC for Ceph traffic, so isolation here makes sense.
 - **VLAN201** to **VLAN209** would be application VLANs. **Kiwi** will bind them, being region's router, but **Kaktus** don't. Instantiated VMs will however, through bridged network adapters.
