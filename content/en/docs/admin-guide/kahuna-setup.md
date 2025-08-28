@@ -1,7 +1,7 @@
 ---
 title: Setup Kahuna
 description: Let's start with the orchestration core
-weight: 4
+weight: 1
 ---
 
 Now let's suppose that you've cloned the Git platform repository template and that your **Kahuna** instance server has been provisioned with latest Ubuntu LTS distribution. Be sure that it is SSH-accessible with some local user.
@@ -289,4 +289,4 @@ After a few minutes, if everything's went okay, you should have a working **Kahu
 - The [Kahuna](/docs/concepts/kahuna/) backend server itself, our core orchestrator.
 - Optionally, [MongoDB](https://www.mongodb.com/) database.
 
-We're now ready for [provisionning users and teams](/docs/getting-started/provision-users/) !
+We're now ready for [provisionning users and teams](/docs/admin-guide/provision-users/) !

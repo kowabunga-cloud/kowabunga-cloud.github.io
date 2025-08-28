@@ -1,7 +1,7 @@
 ---
 title: Provisioning Kiwi
 description: Let's provision our Kiwi instances
-weight: 7
+weight: 4
 ---
 
 As detailed in [network topology](/docs/getting-started/topology/), we'll have 2 **Kiwi** instances:

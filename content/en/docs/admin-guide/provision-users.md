@@ -1,7 +1,7 @@
 ---
 title: Provisioning Users
 description: Let's populate admin users and teams
-weight: 5
+weight: 2
 ---
 
 Your **Kahuna** instance is now up and running, let's get things and create a few admin users accounts. At first, we only have the super-admin API key that was previously set through Ansible deployment. We'll make use of it to provision further users and associated teams. After all, we want a nominative user acount for each contributor, right ?
@@ -95,4 +95,4 @@ With security in mind, Kowabunga will prevent you from setting your own password
 
 Once users have been registered and password generated, and provided **Koala** Web application has been deployed as well, they can connect to (and land on a perfectly empty and so useless dashboard ;-) for now at least ).
 
-Let's move on and start [creating our first region](/docs/getting-started/create-region/) !
+Let's move on and start [creating our first region](/docs/admin-guide/create-region/) !

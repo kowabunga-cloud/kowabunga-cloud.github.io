@@ -1,7 +1,7 @@
 ---
 title: Create Your First Region
 description: Let's setup a new region and its Kiwi and Kaktus instances
-weight: 6
+weight: 3
 ---
 
 Orchestrator being ready, we can now boostrap our first region.
@@ -394,4 +394,4 @@ Once carefully reviewed, again, apply:
 $ kobra tf apply
 ```
 
-Let's continue and [provision our region's **Kiwi** instances](/docs/getting-started/create-kiwi/) !
+Let's continue and [provision our region's **Kiwi** instances](/docs/admin-guide/create-kiwi/) !
