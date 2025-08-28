@@ -116,7 +116,6 @@ Note that **Kaktus** instance creaion/update takes 4 specific parameters into ac
 - **cpu_overcommit** and **memory_overcommit** define the [overcommit](https://en.wikipedia.org/wiki/Memory_overcommitment) ratio you accept your physical hosts to address. As for price, not every server is born equal. Some have hyper-threading, other don't. You may consider that a value of 3 or 4 is fine, other tend to be stricter and use 2 instead. The more you set the bar, the more virtual resources you'll be able to create but the less actual physical resources they'll be able to get.
 {{< /alert >}}
 
-
 ```hcl
 locals {
   currency           = "EUR"
