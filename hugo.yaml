@@ -210,6 +210,13 @@ params:
         icon: fa fa-bug
         desc: BugTracker
 
+  render_hooks:
+    link:
+      errorLevel: 'warning' # ignore (default), warning, or error (fails the build)
+      highlightBroken: true # true or false (default)
+    image:
+      errorLevel: 'warning' # ignore (default), warning, or error (fails the build)
+
 module:
   hugoVersion:
     extended: true
@@ -218,3 +225,8 @@ module:
     - path: github.com/google/docsy
       disable: false
     - path: github.com/hugomods/images
+  mounts:
+    - source: 'assets'
+      target: 'assets'
+    - source: 'static'
+      target: 'assets'
