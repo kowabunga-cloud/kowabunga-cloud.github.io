@@ -1,4 +1,8 @@
 HUGO = hugo
+BINDIR = bin
+
+HTMLTEST=$(BINDIR)/htmltest
+HTMLTEST_VERSION=v0.17.0
 
 V = 0
 Q = $(if $(filter 1,$V),,@)
@@ -23,5 +27,15 @@ dist: setup
 	$Q $(HUGO) --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic
 	$Q find public -type f -exec chmod a+w {} \;
 
+.PHONY: get-htmltest
+get-htmltest:
+	$Q mkdir -p $(BINDIR)
+	$Q test -x $(HTMLTEST) || GOBIN="$(PWD)/$(BINDIR)/" go install github.com/wjdp/htmltest@$(HTMLTEST_VERSION)
+
+.PHONY: test
+test: get-htmltest
+	$Q $(HTMLTEST) public
+
 clean:
 	$Q rm -rf public
+	$Q rm -rf $(BINDIR)
