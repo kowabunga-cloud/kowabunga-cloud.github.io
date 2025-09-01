@@ -76,6 +76,17 @@ jobs:
           path: |
             ${{ runner.temp }}/hugo_cache
           key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+      - name: Check for broken links
+        continue-on-error: false
+        uses: wjdp/htmltest-action@master
+        with:
+          config: .htmltest.yml
+      - name: Archive htmltest results
+        uses: actions/upload-artifact@v2
+        with:
+          name: htmltest-report
+          path: tmp/.htmltest/htmltest.log
+          retention-days: 7 # Default is 90 days
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
