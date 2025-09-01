@@ -1,5 +1,5 @@
 ---
-title: Koala
+title: Koala WebUI
 description: Learn about Koala Web application.
 weight: 4
 ---

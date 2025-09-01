@@ -9,7 +9,7 @@ Kaktus HCI nodes rely on [Ceph](https://ceph.io/en/) for underlying distributed 
 Ceph provides both:
 
 - RBD block-device images for **Kompute** virtual instances
-- CephFS distributed file system for [Kylo](/docs/services/kylo/) storage.
+- CephFS distributed file system for [Kylo](/docs/user-guide/services/kylo/) storage.
 
 Ceph is awesome. Ceph is fault-tolerant. Ceph hashes your file objects into thousands of pieces, distributed and replicated over dozens if not hundreds of SSDs on countless machines. And yet, Ceph sometimes crashes or fails to recover (even though it has incredible self healing capabilities).
 

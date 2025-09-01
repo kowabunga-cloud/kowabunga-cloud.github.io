@@ -278,7 +278,7 @@ And again, apply:
 $ kobra tf apply
 ```
 
-What have we done here ? Simply iterating over VNETs to associate those with VLAN IDs and the name of Linux bridge interfaces which will be created on each **Kaktus** instance from the zone (see [further](/docs/getting-started/create-kaktus/)).
+What have we done here ? Simply iterating over VNETs to associate those with VLAN IDs and the name of Linux bridge interfaces which will be created on each **Kaktus** instance from the zone (see [further](/docs/admin-guide/create-kaktus/)).
 
 {{< alert color="success" title="Note" >}}
 Note that while services instances will have dedicated reserved networks, we'll (conventionnally) add the VLAN 0 here (which is not really a VLAN at all).

@@ -1,5 +1,5 @@
 ---
-title: Kiwi
+title: Kiwi SD-WAN
 description: Learn about Kiwi SD-WAN node.
 weight: 5
 ---

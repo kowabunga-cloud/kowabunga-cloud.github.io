@@ -1,5 +1,5 @@
 ---
-title: Kawaii
+title: Kawaii Internet Gateway
 description: Kowabunga Internet Gateway
 weight: 4
 ---
@@ -28,3 +28,29 @@ Keep in mind that peering requires a bi-directional agreement. Connection and po
 {{< /alert >}}
 
 Note that thanks to Kowabunga's internal network architecture and on-premises network backbone, inter-zones traffic is a free-of-charge possibility ;-) There's no reason not to spread your resources on as many zones as can be, you won't ever see any end-of-the-month surprise charge.
+
+## Resource Creation
+
+As a **projectAdmin** user, one can create a **Kawaii** Internet gateway for the **acme** project in **eu-west** region the following way:
+
+<!-- prettier-ignore-start -->
+{{< tabpane >}}
+{{< tab header="Code:" disabled=true />}}
+{{< tab header="TF" lang="hcl" >}}
+data "kowabunga_region" "eu-west" {
+  name = "eu-west"
+}
+
+resource "kowabunga_kawaii" "gw" {
+  project = kowabunga_project.acme.id
+  region  = data.kowabunga_region.eu-west.id
+}
+{{< /tab >}}
+{{< /tabpane >}}
+<!-- prettier-ignore-end -->
+
+You may refer to [TF](https://search.opentofu.org/provider/kowabunga-cloud/kowabunga/latest/docs/resources/kawaii) documentation to extend **Kawaii** gateway with VPC peering and custom egress/ingress/nat rules.
+
+## IPSec Peering
+
+Alternatively, it is also possible to setup an [IPSec peering connection](https://search.opentofu.org/provider/kowabunga-cloud/kowabunga/latest/docs/resources/kawaii_ipsec) with **Kawaii**, should you need to provide some admin users with remote access capabilities.

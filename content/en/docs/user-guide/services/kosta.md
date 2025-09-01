@@ -1,7 +1,8 @@
 ---
-title: Kosta
+title: Kosta Object Storage
 description: Kowabunga Object Storage Service
 weight: 8
+draft: true
 ---
 
 {{% pageinfo %}}

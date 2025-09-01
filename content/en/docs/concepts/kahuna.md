@@ -1,5 +1,5 @@
 ---
-title: Kahuna
+title: Kahuna Orchestrator
 description: Learn about Kahuna orchestrator.
 weight: 3
 ---

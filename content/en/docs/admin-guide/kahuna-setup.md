@@ -242,7 +242,7 @@ You'll need to define:
 - a custom email address (and associated SMTP connection settings) for **Kahuna** to be able to send email notifications to users.
 - a randomly generated key to sign JWT tokens (please ensure it is secure enough, not to compromise issued tokens robustness).
 - a randomly generated admin API key. It'll be used to provision the admin bits of Kowabunga, until proper user accounts have been created.
-- a private/public SSH key-pair to be used by platform admins to seamlessly SSH into instantiated [Kompute](/docs/services/kompute/) instances. Please ensure that the private key is being stored securely somewhere.
+- a private/public SSH key-pair to be used by platform admins to seamlessly SSH into instantiated [Kompute](/docs/user-guide/services/kompute/) instances. Please ensure that the private key is being stored securely somewhere.
 
 Then simply edit the **ansible/inventories/group_vars/kahuna/main.yml** file the following way:
 

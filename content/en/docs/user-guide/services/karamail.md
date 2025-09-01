@@ -1,7 +1,8 @@
 ---
-title: Karamail
+title: Karamail SMTP
 description: Kowabunga SMTP Server
 weight: 3
+draft: true
 ---
 
 {{% pageinfo %}}

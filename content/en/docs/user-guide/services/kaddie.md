@@ -1,7 +1,8 @@
 ---
-title: Kaddie
+title: Kaddie PKI
 description: Kowabunga Private Key Infrastructure
 weight: 1
+draft: true
 ---
 
 {{% pageinfo %}}

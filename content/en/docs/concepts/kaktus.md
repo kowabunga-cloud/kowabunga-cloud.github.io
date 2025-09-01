@@ -1,5 +1,5 @@
 ---
-title: Kaktus
+title: Kaktus HCI
 description: Learn about Kaktus HCI node.
 weight: 6
 ---

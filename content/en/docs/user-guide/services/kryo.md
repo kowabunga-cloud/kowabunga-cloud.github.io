@@ -1,7 +1,8 @@
 ---
-title: Kryo
+title: Kryo Backup
 description: Kowabunga Backup and Cold Storage
 weight: 9
+draft: true
 ---
 
 {{% pageinfo %}}
