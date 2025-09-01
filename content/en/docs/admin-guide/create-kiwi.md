@@ -1,6 +1,6 @@
 ---
 title: Provisioning Kiwi
-description: Let's provision our Kiwi instances
+description: Let's provision our **Kiwi** instances
 weight: 4
 ---
 
@@ -93,7 +93,7 @@ kowabunga_netplan_config:
         - 10.50.209.2/24
 ```
 
-You'll need to ensure that the MAC addresses and host and gateway IP addresses are correctly set, depending on your setup. Once done, you can do the same for the alternate **Kiwi** instance in **ansible/inventories/host_vars/10.50.101.2.yml** file file.
+You'll need to ensure that the MAC addresses and host and gateway IP addresses are correctly set, depending on your setup. Once done, you can do the same for the alternate **Kiwi** instance in **ansible/inventories/host_vars/10.50.101.2.yml** file.
 
 Extend the **ansible/inventories/group_vars/kiwi/main.yml** file with the following to ensure generic settings are propagated to all **Kiwi** instances:
 
@@ -148,3 +148,40 @@ kowabunga_network_failover_settings:
 ```
 
 This will ensure that VRRP packets flows between the 2 peers so one always ends up being the active router for each virtual network interface.
+
+## Firewall Configuration
+
+When running the Ansible playbook, **Kiwi** instances will be automatically configured as network routers. This is mandatory to ensure packets flow from WAN to LAN (and reciprocally) to inter-VLANs for services.
+
+Configuring the associated firewall may then comes in handy.
+
+There 2 possible options:
+
+- **Kiwi** remains a private gateway, non-exposed to public Internet. This may be the case if you intend to only run Kowabunga as private corporate infrastructure only. Projects will get their own private network and the 'public' one will actually consist of one of your company's private subnet.
+- **Kiwi** is a public gateway, exposed to public Internet.
+
+In all cases, extend the **ansible/inventories/group_vars/kiwi/main.yml** file with the following to enable firewalling:
+
+```yaml
+kowabunga_firewall_enabled: true
+```
+
+In our first case scenario, simply configure the firewall as pass-through NAT gateway. Traffic from all interfaces will simply be forwarded:
+
+```yaml
+kowabunga_firewall_passthrough_enabled: true
+```
+
+In the event of a public gateway, things are a bit more complex, and you should likely refer to the [Ansible firewall module documentation](https://ansible.kowabunga.cloud/kowabunga/cloud/firewall_role.html#ansible-collections-kowabunga-cloud-firewall-role) to declare the following:
+
+```yaml
+kowabunga_firewall_dnat_rules: []
+kowabunga_firewall_forward_interfaces: []
+kowabunga_firewall_trusted_public_ips: []
+kowabunga_firewall_lan_extra_nft_rules: []
+kowabunga_firewall_wan_extra_nft_rules: []
+```
+
+with actual rules, depending on your network configuration and access means and policy (e.g. remote VPN access).
+
+Once done with **Kiwi** deployment, let's move the [Kaktus](/docs/admin-guide/create-kaktus/) provisioning.
