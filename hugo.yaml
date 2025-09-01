@@ -126,7 +126,7 @@ params:
   url_latest_version: https://www.kowabunga.cloud
 
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-  github_repo: https://github.com/kowabunga-cloud/kowabunga
+  github_repo: https://github.com/kowabunga-cloud/kowabunga-cloud.github.io
 
   # An optional link to a related project repo. For example, the sibling repository where your product code lives.
   github_project_repo: https://github.com/kowabunga-cloud/kowabunga
