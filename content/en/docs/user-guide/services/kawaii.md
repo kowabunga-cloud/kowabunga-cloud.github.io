@@ -51,6 +51,82 @@ resource "kowabunga_kawaii" "gw" {
 
 You may refer to [TF](https://search.opentofu.org/provider/kowabunga-cloud/kowabunga/latest/docs/resources/kawaii) documentation to extend **Kawaii** gateway with VPC peering and custom egress/ingress/nat rules.
 
-## IPSec Peering
+## VPC Peering
 
-Alternatively, it is also possible to setup an [IPSec peering connection](https://search.opentofu.org/provider/kowabunga-cloud/kowabunga/latest/docs/resources/kawaii_ipsec) with **Kawaii**, should you need to provide some admin users with remote access capabilities.
+Kowabunga VPC peering allows you to inter-connect 2 projects subnets. This can come in handy if you have 2 specific applications, managed by different set of people, and still need both to communicate all together.
+
+The following example extends our **Kawaii** gateway configuration to peer with 2 subnets:
+
+- the underlying Ceph one, used to directly access storage resources.
+- the one form **marvelous** project, allowing bi-directional connectivity throuh associated ingress/egress firewalling rules.
+
+<!-- prettier-ignore-start -->
+{{< tabpane >}}
+{{< tab header="Code:" disabled=true />}}
+{{< tab header="TF" lang="hcl" >}}
+resource "kowabunga_kawaii" "gw" {
+  project = kowabunga_project.acme.id
+  region  = data.kowabunga_region.eu-west.id
+  vpc_peerings = [
+    {
+      subnet = data.kowabunga_subnet.eu-west-ceph.id
+    },
+    {
+      subnet = data.kowabunga_subnet.eu-west-marvelous.id
+      egress = {
+        ports    = "1-65535"
+        protocol = "tcp"
+      }
+      ingress = {
+        ports    = "1-65535"
+        protocol = "tcp"
+      }
+      policy = "accept"
+    },
+  ]
+}
+{{< /tab >}}
+{{< /tabpane >}}
+<!-- prettier-ignore-end -->
+
+{{< alert color="warning" title="Warning" >}}
+Note that setting up VPC peering requires you to configure and allow connectivity on both projects ends. Network is bi-directional and, for security measures, one project cannot arbitrary decide to peer with another one without mutual consent.
+{{< /alert >}}
+
+## IPsec Peering
+
+Alternatively, it is also possible to setup an [IPsec peering connection](https://search.opentofu.org/provider/kowabunga-cloud/kowabunga/latest/docs/resources/kawaii_ipsec) with **Kawaii**, should you need to provide some admin users with remote access capabilities.
+
+This allows connecting your private subnet with other premises or Cloud providers as to extend the reach of services behind the walls of Kowabunga.
+
+The above example extend our **Kawaii** instance with an IPsec connection with the ACME remote office. The remote IPsec engine public IP address will be **5.6.7.8** and expose the private network **172.16.1.0/24**.
+
+<!-- prettier-ignore-start -->
+{{< tabpane >}}
+{{< tab header="Code:" disabled=true />}}
+{{< tab header="TF" lang="hcl" >}}
+resource "kowabunga_kawaii_ipsec" "office" {
+  kawaii                      = kowabunga_kawaii.gw.id
+  name                        = "ACME Office"
+  desc                        = "connect ro aws ipsec"
+  pre_shared_key              = local.secrets.kowabunga.ipsec_office_psk
+  remote_peer                 = "5.6.7.8"
+  remote_subnet               = "172.16.1.0/24"
+  phase1_dh_group_number      = 14
+  phase1_integrity_algorithm  = "SHA512"
+  phase1_encryption_algorithm = "AES256"
+  phase2_dh_group_number      = 14
+  phase2_integrity_algorithm  = "SHA512"
+  phase2_encryption_algorithm = "AES256"
+}
+{{< /tab >}}
+{{< /tabpane >}}
+<!-- prettier-ignore-end -->
+
+{{< alert color="warning" title="Warning" >}}
+It comes without saying but setting up an IPsec tunnel requires you to:
+
+- Expose both ends publicly
+- Configure tunnel connectivity both ways.
+- Configure both ends firewall, if necessary.
+{{< /alert >}}
