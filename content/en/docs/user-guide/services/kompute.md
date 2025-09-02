@@ -1,5 +1,5 @@
 ---
-title: Kompute Virtual Instances
+title: Kompute Virtual Instance
 description: Kowabunga Virtual Machine instance
 weight: 6
 ---
