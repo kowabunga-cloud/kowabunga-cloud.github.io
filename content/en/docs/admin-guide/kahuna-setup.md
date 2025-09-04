@@ -248,7 +248,13 @@ Then simply edit the **ansible/inventories/group_vars/kahuna/main.yml** file the
 
 ```yaml
 kowabunga_public_url: "https://kowabunga.acme.com"
+```
 
+(as variable will be reused by all instance types)
+
+and the **ansible/inventories/group_vars/kahuna/main.yml** file the following way:
+
+```yaml
 kowabunga_kahuna_http_address: "10.0.0.1"
 kowabunga_kahuna_admin_email: kowabunga@acme.com
 kowabunga_kahuna_jwt_signature: "{{ secret_kowabunga_kahuna_jwt_signature }}"

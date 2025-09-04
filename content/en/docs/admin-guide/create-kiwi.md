@@ -23,8 +23,8 @@ It is now time to declare your **Kiwi** instances in Ansible's inventory. Simply
 
 ```ini
 [kiwi]
-10.50.101.2 name=kiwi-eu-west-1 ansible_ssh_user=ubuntu
-10.50.101.3 name=kiwi-eu-west-2 ansible_ssh_user=ubuntu
+10.50.101.2 name=kiwi-eu-west-1 region=eu-west ansible_ssh_user=ubuntu
+10.50.101.3 name=kiwi-eu-west-2 region=eu-west ansible_ssh_user=ubuntu
 ```
 
 {{< alert color="warning" title="Important" >}}
@@ -185,3 +185,84 @@ kowabunga_firewall_wan_extra_nft_rules: []
 with actual rules, depending on your network configuration and access means and policy (e.g. remote VPN access).
 
 Once done with **Kiwi** deployment, let's move the [Kaktus](/docs/admin-guide/create-kaktus/) provisioning.
+
+## PowerDNS Setup
+
+{{< alert color="success" title="Information" >}}
+Documentation below is ephemeral.
+
+Kiwi currently relies on [PowerDNS](https://www.powerdns.com/) as a third-party DNS server. Current deployment comes bundled, associated with a [MariaDB](https://mariadb.org/) backend.
+
+This is a temporary measure only. Next stable versions of **Kiwi** will soon feature a standalone DNS server implementation, nullifying all third-aprty dependencies and configuration requirements.
+{{< /alert >}}
+
+In order to deploy and configure **PowerDNS** and its associated **MariaDB** database backend, one need to extend Ansible configuration.
+
+Let's start by adding the following information to our **ansible/inventories/group_vars/all/main.yml** file:
+
+```yaml
+domain_name: "{{ hostvars[inventory_hostname].region }}.acme.local"
+admin_domain_name: "admin.{{ domain_name }}"
+storage_domain_name: "storage.{{ domain_name }}"
+```
+
+Let's now reflect these definitions into Kiwi's **ansible/inventories/group_vars/kiwi/main.yml** configuration file:
+
+```yaml
+kowabunga_powerdns_locally_managed_zones:
+  - "{{ domain_name }}"
+  - "{{ admin_domain_name }}"
+  - "{{ storage_domain_name }}"
+
+kowabunga_powerdns_locally_managed_zone_records:
+  - zone: "{{ domain_name }}"
+    name: kiwi
+    value: 10.50.101.1
+  - zone: "{{ storage_domain_name }}"
+    name: ceph
+    value: 10.50.102.11
+  - zone: "{{ storage_domain_name }}"
+    name: ceph
+    value: 10.50.102.12
+  - zone: "{{ storage_domain_name }}"
+    name: ceph
+    value: 10.50.102.13
+```
+
+This will further instruct **PowerDNS** to handle local DNS zone for region **eu-west** on **acme.local** TLD.
+
+Note that we'll use the **Kaktus** instances VLAN 102 IP addresses that we've defined in [network toplogy](/docs/getting-started/topology/) so that **ceph.storage.eu-west.acme.local** will be a round-robin DNS to these instances.
+
+Finally, edit the SOPS-encrypted **ansible/inventories/group_vars/kiwi.sops.yml** file with newly defined secrets:
+
+```yaml
+secret_kowabunga_powerdns_webserver_password: ONE_STRONG_PASSWORD
+secret_kowabunga_powerdns_api_key: ONE_MORE
+secret_kowabunaga_powerdns_db_admin_password: YET_ANOTHER
+secret_kowabunaga_powerdns_db_user_password: HERE_WE_GO
+```
+
+As names stand, first 2 variables will be used to expose **PowerDNS** API (which will be consumed by **Kiwi** agent) and last twos are MariaDB credentials, used by **PowerDNS** to connect to. None of these passwords really matter, they're server-to-server internal use only, no use is ever going to make use of them. But let's use something robust nonetheless.
+
+## Kiwi Agent
+
+Finally, let's take care of **Kiwi** agent. The agent will establish its secured WebSocket connection to **Kahuna**, receives configuration changes from, and apply accordingly.
+
+Now remember that we previously used TF to [register new Kiwi agents](/docs/admin-guide/create-region/#kiwi-instances-and-agents). Once applied, emails were sent for each instance with a set of agent identifier and API key. These values now have to be provided to Ansible, as these are going to be the credentials used by **Kiwi** agent to connect to **Kahuna**.
+
+So let's edit each Kiwi instance secrets file in respectively **ansible/inventories/host_vars/10.50.101.{2,3}.sops.yml** files:
+
+```yaml
+secret_kowabunga_kiwi_agent_id: AGENT_ID_FROM_KAHUNA_EMAIL_FROM_TF_PROVISIONING_STEP
+secret_kowabunga_kiwi_agent_api_key: AGENT_API_KEY_FROM_KAHUNA_EMAIL_FROM_TF_PROVISIONING_STEP
+```
+
+## Ansible Deployment
+
+We're finally done with **Kiwi**'s configuration. All we need to do now is finally run Ansible to make things live. This is done by invoking the **kiwi** playbook from the **kowabunga.cloud** collection:
+
+```sh
+$ kobra ansible deploy -p kowabunga.cloud.kiwi
+```
+
+We’re now ready for [provisionning Kaktus HCI nodes](/docs/admin-guide/create-kaktus/) !

@@ -25,9 +25,9 @@ It is now time to declare your **Kaktus** instances in Ansible's inventory. Simp
 
 ```ini
 [kaktus]
-10.50.101.11 name=kaktus-eu-west-a-1 ansible_ssh_user=ubuntu
-10.50.101.12 name=kaktus-eu-west-a-2 ansible_ssh_user=ubuntu
-10.50.101.13 name=kaktus-eu-west-a-3 ansible_ssh_user=ubuntu
+10.50.101.11 name=kaktus-eu-west-a-1 region=eu-west ansible_ssh_user=ubuntu
+10.50.101.12 name=kaktus-eu-west-a-2 region=eu-west ansible_ssh_user=ubuntu
+10.50.101.13 name=kaktus-eu-west-a-3 region=eu-west ansible_ssh_user=ubuntu
 ```
 
 {{< alert color="warning" title="Important" >}}
