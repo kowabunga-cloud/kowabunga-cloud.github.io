@@ -394,4 +394,28 @@ Once carefully reviewed, again, apply:
 $ kobra tf apply
 ```
 
+One more thing, let's reflect those changes in Ansible's configuration as well.
+
+Simply extend your **ansible/inventories/group_vars/eu_west/main.yml** file the following way:
+
+```yaml
+kowabunga_region: eu-west
+kowabunga_region_domain_admin_network: "10.50.101.0/24"
+kowabunga_region_domain_admin_router_address: 10.50.101.1
+kowabunga_region_domain_storage_network: "10.50.102.0/24"
+kowabunga_region_domain_storage_router_address: 10.50.102.1
+
+kowabunga_region_vlan_id_ranges:
+  - from: 101
+    to: 102
+    net_prefix: 10.50
+    net_mask: 24
+  - from: 201
+    to: 209
+    net_prefix: 10.50
+    net_mask: 24
+```
+
+This will help us provision the next steps ...
+
 Let's continue and [provision our region's **Kiwi** instances](/docs/admin-guide/create-kiwi/) !

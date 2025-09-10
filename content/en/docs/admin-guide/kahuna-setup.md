@@ -1,10 +1,10 @@
 ---
 title: Setup Kahuna
 description: Let's start with the orchestration core
-weight: 1
+weight: 2
 ---
 
-Now let's suppose that you've cloned the Git platform repository template and that your **Kahuna** instance server has been provisioned with latest Ubuntu LTS distribution. Be sure that it is SSH-accessible with some local user.
+Now let's suppose that your **Kahuna** instance server has been provisioned with latest Ubuntu LTS distribution. Be sure that it is SSH-accessible with some local user.
 
 Let's take the following assumptions for the rest of this tutorial:
 
@@ -84,32 +84,6 @@ and apply infrastructure changes:
 $ kobra tf apply
 ```
 
-## Inventory Management
-
-It is now time to declare your **Kahuna** instance in Ansible's inventory. Simply extend the **ansible/inventories/hosts.txt** the following way:
-
-```ini
-[kahuna]
-10.0.0.1 name=kowabunga-kahuna-1 ansible_ssh_user=ubuntu
-```
-
-The instance is now declared to be part of **kahuna** group and Ansible will use **ubuntu** local user account to connect through SSH.
-
-Note that doing so, you can now safely:
-
-- declare host-specific variables in **ansible/host_vars/10.0.0.1.yml** file.
-- declare host-specific sensitive variables in **ansible/host_vars/10.0.0.1.sops.yml** file.
-- declare **kahuna** group-specific variables in **ansible/group_vars/kahuna/main.yml** file.
-- declare **kahuna** group-specific sensitive variables in **ansible/group_vars/kahuna.sops.yml** file.
-- declare any other global variables in **ansible/group_vars/all/main.yml** file.
-- declare any other global sensitive variables in **ansible/group_vars/all.sops.yml** file.
-
-Note that Ansible variables precedence will apply:
-
-```txt
-role defaults < all vars < group vars < host vars < role vars
-```
-
 ## Ansible Kowabunga Collection
 
 Kowabunga comes with an  official [Ansible Collection](https://galaxy.ansible.com/ui/repo/published/kowabunga/cloud/) and its associated [documentation](https://ansible.kowabunga.cloud/kowabunga/cloud/index.html#plugins-in-kowabunga-cloud).
@@ -125,7 +99,7 @@ Check out **ansible/requirements.yml** file to declare the specific collection v
 ---
 collections:
   - name: kowabunga.cloud
-    version: 0.0.1
+    version: 0.1.0
 ```
 
 By default, your platform is configured to pull a tagged official release from Ansible Galaxy. You may however prefer to pull it directly from Git, using latest commit for instance. This can be accomodated through:
@@ -244,7 +218,7 @@ You'll need to define:
 - a randomly generated admin API key. It'll be used to provision the admin bits of Kowabunga, until proper user accounts have been created.
 - a private/public SSH key-pair to be used by platform admins to seamlessly SSH into instantiated [Kompute](/docs/user-guide/services/kompute/) instances. Please ensure that the private key is being stored securely somewhere.
 
-Then simply edit the **ansible/inventories/group_vars/kahuna/main.yml** file the following way:
+Then simply edit the **ansible/inventories/group_vars/all/main.yml** file the following way:
 
 ```yaml
 kowabunga_public_url: "https://kowabunga.acme.com"

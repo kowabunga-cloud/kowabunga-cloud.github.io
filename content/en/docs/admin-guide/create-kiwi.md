@@ -1,7 +1,7 @@
 ---
 title: Provisioning Kiwi
 description: Let's provision our **Kiwi** instances
-weight: 4
+weight: 5
 ---
 
 As detailed in [network topology](/docs/getting-started/topology/), we'll have 2 **Kiwi** instances:
@@ -19,81 +19,59 @@ Note that *10.50.101.1* and *10.50.102.1* will be used as virtual IPs (VIPs).
 
 ## Inventory Management
 
-It is now time to declare your **Kiwi** instances in Ansible's inventory. Simply extend the **ansible/inventories/hosts.txt** the following way:
-
-```ini
-[kiwi]
-10.50.101.2 name=kiwi-eu-west-1 region=eu-west ansible_ssh_user=ubuntu
-10.50.101.3 name=kiwi-eu-west-2 region=eu-west ansible_ssh_user=ubuntu
-```
+If required, update your **Kiwi** instances in Ansible's inventory.
 
 {{< alert color="warning" title="Important" >}}
 Note that for the first-time installation, private IPs from the inventory are to replaced by the servers private ones (or anything in place which allows for bootstrapping machines).
 {{< /alert >}}
 
-The instances are now declared to be part of **kiwi** group and Ansible will use **ubuntu** local user account to connect through SSH.
-
-Note that doing so, you can now safely:
-
-- declare host-specific variables in **ansible/host_vars/10.50.101.{2,3}.yml** files.
-- declare host-specific sensitive variables in **ansible/host_vars/10.50.101.{2,3}.sops.yml** file.
-- declare **kiwi** group-specific variables in **ansible/group_vars/kiwi/main.yml** file.
-- declare **kiwi** group-specific sensitive variables in **ansible/group_vars/kiwi.sops.yml** file.
-- declare any other global variables in **ansible/group_vars/all/main.yml** file.
-- declare any other global sensitive variables in **ansible/group_vars/all.sops.yml** file.
-
-Note that Ansible variables precedence will apply:
-
-```txt
-role defaults < all vars < group vars < host vars < role vars
-```
+The instances are now declared to be part of **kiwi**, **kiwi_eu_west** and **eu_west** groups.
 
 ## Network Configuration
 
 We'll instruct the Ansible collection to provision network settings through [Netplan](https://netplan.io/). Note that our example is pretty simple, with only a single network interface to be used for private LAN, no link aggregation being used (recommended for enterprise-grade setups).
 
-Let's declare the following configuration in **ansible/inventories/host_vars/10.50.101.2.yml** file:
+As the configuration is both instance-specific (private MAC address, IP address ...), region-specific (all **Kiwi** instance will do likely the same), and, as such, repetitive, we'll use some Ansible overlaying.
+
+We've already declare quite a few stuff at region level when creating **eu-west** one.
+
+Let's now extend the **ansible/inventories/group_vars/kiwi_eu_west/main.yml** file with the following:
 
 ```yaml
 kowabunga_netplan_config:
   ethernet:
-    - name: "{{ wan_dev }}"
-      mac: "aa:bb:cc:dd:ee:ff"
+    - name: "{{ kowabunga_host_underlying_interface }}"
+      mac: "{{ kowabunga_host_underlying_interface_mac }}"
       ips:
-        - a.b.c.d/24
+        - "4.5.6.{{ kowabunga_host_public_ip_addr_suffix }}/26"
       routes:
         - to: default
-          via: e.c.d.f
-    - name: "{{ lan_dev }}"
-      mac: "aa:bb:cc:dd:ee:ff"
-  vlan:
-    # EU-WEST admin network
-    - name: vlan101
-      id: 101
-      link: "{{ lan_dev }}"
-      ips:
-        - 10.50.101.2/24
-    # EU-WEST storage network
-    - name: vlan102
-      id: 102
-      link: "{{ lan_dev }}"
-      ips:
-        - 10.50.102.2/24
-    # EU-WEST services networks
-    - name: vlan201
-      id: 201
-      link: "{{ lan_dev }}"
-      ips:
-        - 10.50.201.2/24
-    [...]
-    - name: vlan209
-      id: 209
-      link: "{{ lan_dev }}"
-      ips:
-        - 10.50.209.2/24
+          via: 4.5.6.1
+  vlan: |
+    {%- set res=[] -%}
+    {%- for r in kowabunga_region_vlan_id_ranges -%}
+    {%- for id in range(r.from, r.to + 1, 1) -%}
+    {%- set dummy = res.extend([{"name": "vlan" + id | string, "id": id, "link": kowabunga_host_vlan_underlying_interface, "ips": [r.net_prefix | string + "." + id | string + "." + kowabunga_host_vlan_ip_addr_suffix | string + "/" + r.net_mask | string]}]) -%}
+    {%- endfor -%}
+    {%- endfor -%}
+    {{- res -}}
 ```
 
-You'll need to ensure that the MAC addresses and host and gateway IP addresses are correctly set, depending on your setup. Once done, you can do the same for the alternate **Kiwi** instance in **ansible/inventories/host_vars/10.50.101.2.yml** file.
+As ugly as it looks, this Jinja macro will help us iterate over all the VLAN interfaces we need to create by simply taking a few instance-specific variables into consideration.
+
+And that's exactly what we'll define in **ansible/inventories/host_vars/kiwi-eu-west-1** file:
+
+```yaml
+kowabunga_primary_network_interface: eth0
+
+kowabunga_host_underlying_interface: "{{ kowabunga_primary_network_interface }}"
+kowabunga_host_underlying_interface_mac: "aa:bb:cc:dd:ee:ff"
+kowabunga_host_vlan_underlying_interface: "{{ kowabunga_primary_network_interface }}"
+kowabunga_host_public_ip_addr_suffix: 202
+kowabunga_host_vlan_ip_addr_suffix: 2
+```
+
+You'll need to ensure that the MAC addresses and host and gateway IP addresses are correctly set, depending on your setup. Once done, you can do the same for the alternate **Kiwi** instance in **ansible/inventories/host_vars/kiwi-eu-west-2.yml** file.
 
 Extend the **ansible/inventories/group_vars/kiwi/main.yml** file with the following to ensure generic settings are propagated to all **Kiwi** instances:
 
@@ -103,49 +81,34 @@ kowabunga_netplan_apply_enabled: true
 ```
 
 {{< alert color="success" title="Information" >}}
-Note that setting **kowabunga_netplan_disable_cloud_init** is an optional step. If you'd like to keep whatever configuration cloud-init has previously set, it's all fine (but it's always recommended not to have dual sourc eof truth).
+Note that setting **kowabunga_netplan_disable_cloud_init** is an optional step. If you'd like to keep whatever configuration cloud-init has previously set, it's all fine (but it's always recommended not to have dual source of truth).
 {{< /alert >}}
 
 ## Network Failover
 
 Each **Kiwi** instance configuration is now set to receive host-specific network configuration. But they are meant to work in an HA-cluster, so let's define some redundancy rules. The two instances respectively bind the **.2** and **.3** private IPs from each subnet, but our active router will be **.1**, so let's define network failover configuration for that.
 
-Again, extend the **ansible/inventories/group_vars/kiwi/main.yml** file with the following configuration:
+Again, extend the region-global **ansible/inventories/group_vars/kiwi_eu_west/main.yml** file with the following configuration:
 
 ```yaml
 kowabunga_kiwi_primary_host: "kiwi-eu-west-1"
+
 kowabunga_network_failover_settings:
-  peers: "{{ groups['kiwi'] }}"
+  peers: "{{ groups['kiwi_eu_west'] }}"
   use_unicast: true
   trackers:
     - name: kiwi-eu-west-vip
-      configs:
-        - vip: 10.50.101.1/24
-          vrid: 101
-          primary: "{{ kowabunga_kiwi_primary_host }}"
-          control_interface: vlan101
-          interface: vlan101
-          nopreempt: true
-        - vip: 10.50.102.1/24
-          vrid: 102
-          primary: "{{ kowabunga_kiwi_primary_host }}"
-          control_interface: vlan102
-          interface: vlan102
-          nopreempt: true
-        - vip: 10.50.201.1/24
-          vrid: 201
-          primary: "{{ kowabunga_kiwi_primary_host }}"
-          control_interface: vlan201
-          interface: vlan201
-          nopreempt: true
-        [...]
-        - vip: 10.50.209.1/24
-          vrid: 209
-          primary: "{{ kowabunga_kiwi_primary_host }}"
-          control_interface: vlan209
-          interface: vlan209
-          nopreempt: true
+      configs: |
+        {%- set res = [] -%}
+        {%- for r in kowabunga_region_vlan_id_ranges -%}
+        {%- for id in range(r.from, r.to + 1, 1) -%}
+        {%- set dummy = res.extend([{"vip": r.net_prefix | string + "." + id | string + ".1/" + r.net_mask | string, "vrid": id, "primary": kowabunga_kiwi_primary_host, "control_interface": kowabunga_primary_network_interface, "interface": "vlan" + id | string, "nopreempt": true}]) -%}
+        {%- endfor -%}
+        {%- endfor -%}
+        {{- res -}}
 ```
+
+Once again, we interate over **kowabunga_region_vlan_id_ranges** variable to create our global configuration for **eu-west** region. After all, both **Kiwi** instances from there will have the very same configuration.
 
 This will ensure that VRRP packets flows between the 2 peers so one always ends up being the active router for each virtual network interface.
 
@@ -184,8 +147,6 @@ kowabunga_firewall_wan_extra_nft_rules: []
 
 with actual rules, depending on your network configuration and access means and policy (e.g. remote VPN access).
 
-Once done with **Kiwi** deployment, let's move the [Kaktus](/docs/admin-guide/create-kaktus/) provisioning.
-
 ## PowerDNS Setup
 
 {{< alert color="success" title="Information" >}}
@@ -198,26 +159,10 @@ This is a temporary measure only. Next stable versions of **Kiwi** will soon fea
 
 In order to deploy and configure **PowerDNS** and its associated **MariaDB** database backend, one need to extend Ansible configuration.
 
-Let's start by adding the following information to our **ansible/inventories/group_vars/all/main.yml** file:
+Let's now reflect some definitions into Kiwi's **ansible/inventories/group_vars/kiwi_eu_west/main.yml** configuration file:
 
 ```yaml
-domain_name: "{{ hostvars[inventory_hostname].region }}.acme.local"
-admin_domain_name: "admin.{{ domain_name }}"
-storage_domain_name: "storage.{{ domain_name }}"
-```
-
-Let's now reflect these definitions into Kiwi's **ansible/inventories/group_vars/kiwi/main.yml** configuration file:
-
-```yaml
-kowabunga_powerdns_locally_managed_zones:
-  - "{{ domain_name }}"
-  - "{{ admin_domain_name }}"
-  - "{{ storage_domain_name }}"
-
 kowabunga_powerdns_locally_managed_zone_records:
-  - zone: "{{ domain_name }}"
-    name: kiwi
-    value: 10.50.101.1
   - zone: "{{ storage_domain_name }}"
     name: ceph
     value: 10.50.102.11
@@ -250,7 +195,7 @@ Finally, let's take care of **Kiwi** agent. The agent will establish its secured
 
 Now remember that we previously used TF to [register new Kiwi agents](/docs/admin-guide/create-region/#kiwi-instances-and-agents). Once applied, emails were sent for each instance with a set of agent identifier and API key. These values now have to be provided to Ansible, as these are going to be the credentials used by **Kiwi** agent to connect to **Kahuna**.
 
-So let's edit each Kiwi instance secrets file in respectively **ansible/inventories/host_vars/10.50.101.{2,3}.sops.yml** files:
+So let's edit each Kiwi instance secrets file in respectively **ansible/inventories/host_vars/kiwi-eu-west-{1,2}.sops.yml** files:
 
 ```yaml
 secret_kowabunga_kiwi_agent_id: AGENT_ID_FROM_KAHUNA_EMAIL_FROM_TF_PROVISIONING_STEP

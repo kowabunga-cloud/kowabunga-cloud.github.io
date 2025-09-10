@@ -47,6 +47,14 @@ $ brew install kobra
 
 Just download and extract the tarball for your target.
 
+{{< alert color="success" title="Tips" >}}
+Note that **kobra** is a simple wrapper around your favorite tools. If things don't go as planned, you can turn on the debug flag, which will comes in handy (or simply show you what exact caommand-line is being invoked), e.g.
+
+```sh
+$ KOBRA_DEBUG=1 kobra ...
+```
+{{< /alert >}}
+
 ## Setup Git Repository
 
 Kowabunga comes with a ready-to-consumed platform template. One can clone it from Git through:
