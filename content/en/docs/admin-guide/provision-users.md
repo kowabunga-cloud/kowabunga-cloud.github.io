@@ -12,8 +12,8 @@ Back to TF config, let's edit the **terraform/providers.tf** file:
 terraform {
   required_providers {
     kowabunga = {
-      source  = "kowabunga-cloud/kowabunga"
-      version = ">=0.55.0"
+      source  = "registry.terraform.io/kowabunga-cloud/kowabunga"
+      version = ">=0.55.1"
     }
   }
 }
