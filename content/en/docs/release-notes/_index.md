@@ -67,7 +67,7 @@ weight: 10
 * **NEW**: export user role information in JWT session token (required for Koala Web UI).
 
 ## 0.60.1 (2024-10-11)
-* **BUG**: retagged to cope with Debian versionning issue.
+* **BUG**: retagged to cope with Debian versioning issue.
 
 ## 0.60.0 (2024-10-11)
 * **NEW**: improved generated emails and add custom theme support.

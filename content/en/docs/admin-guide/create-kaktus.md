@@ -31,7 +31,7 @@ If you only have limited disks on your system (e.g. only 2), Ceph storage will b
 - possibly do the same on another disk so you can use software RAID-1 for sanity.
 - partition the rest of your disk for future Ceph usage.
 
-In that case, **parted** is your friend for the job. It also means you need to ensure, at OS installation stage, that you don't let distro partitionner use your full device.
+In that case, **parted** is your friend for the job. It also means you need to ensure, at OS installation stage, that you don't let distro partitioner use your full device.
 
 {{< alert color="success" title="Recommendation" >}}
 As much as can be, we however recommend you to have dedicated disks for Ceph cluster. An enterprise-grade setup would use some small SATA SSDs in RAID-1 for OS and as many dedicated NVMe SSDs as Ceph-reserved data disks.
@@ -131,7 +131,7 @@ kowabunga_netplan_apply_enabled: true
 ```
 
 {{< alert color="success" title="Information" >}}
-Note that setting **kowabunga_netplan_disable_cloud_init** is an optional step. If you'd like to keep whatever configuration cloud-init has previously set, it's all fine (but it's always recommended not to have dual sourc eof truth).
+Note that setting **kowabunga_netplan_disable_cloud_init** is an optional step. If you'd like to keep whatever configuration cloud-init has previously set, it's all fine (but it's always recommended not to have dual source of truth).
 {{< /alert >}}
 
 {{< alert color="success" title="Information" >}}
@@ -168,7 +168,7 @@ Having more than 3 monitors in your cluster is not necessarily useful. If you ha
 Also be sure that those nodes (and those nodes only !) are defined in **Kiwi**'s DNS regional configuration under **ceph** record.
 {{< /alert >}}
 
-Ceph cluster also comes with **managers**. As in real-life, they don't do much ;-) Or at least, they're not as vital as **monitors**. They however expose various metrics. Having one is nice, more than that will only help with failover. As for **monitors**, one can enale it for a **Kaktus** in **ansible/inventories/host_vars/kaktus-eu-west-a-{1,2,3}.yml** instance-specific file:
+Ceph cluster also comes with **managers**. As in real-life, they don't do much ;-) Or at least, they're not as vital as **monitors**. They however expose various metrics. Having one is nice, more than that will only help with failover. As for **monitors**, one can enable it for a **Kaktus** in **ansible/inventories/host_vars/kaktus-eu-west-a-{1,2,3}.yml** instance-specific file:
 
 ```yaml
 kowabunga_ceph_manager_enabled: true
@@ -192,14 +192,14 @@ So let's define where to store these files in **ansible/inventories/group_vars/k
 kowabunga_ceph_local_keyrings_dir: "{{ playbook_dir }}/../../../../../files/ceph"
 ```
 
-Once provisionned, you'll end up with a regional sub-directory (e.g. **eu-west**), containing 3 files:
+Once provisioned, you'll end up with a regional sub-directory (e.g. **eu-west**), containing 3 files:
 
 - ceph.client.admin.keyring
 - ceph.keyring
 - ceph.mon.keyring
 
 {{< alert color="warning" title="Important" >}}
-These files are keyring and extermely sensitive. Anyone with access to these files and your private network gets a full administrative control over the Ceph cluster.
+These files are keyring and extremely sensitive. Anyone with access to these files and your private network gets a full administrative control over the Ceph cluster.
 
 So keep track of them, but do it smartly. As they are plain-text, let's ensure you don't store them on Git that way.
 
@@ -213,9 +213,9 @@ $ mv ceph.client.admin.keyring ceph.client.admin.keyring.sops
 before being pushed. Ansible will automatically decrypt them on the fly, should they end up with *.sops* extension.
 {{< /alert >}}
 
-### Disks provisionning
+### Disks provisioning
 
-Next step is about disks provisionning. Your cluster will contain several disks from several instances (the ones you've either partitionned or left untouched at pre-requisite stage). Each instance may have different toplogy, different disks, different sizes etc ... Disks (or partitions, whatever) are each managed by a Ceph **OSD** daemon.
+Next step is about disks provisioning. Your cluster will contain several disks from several instances (the ones you've either partitioned or left untouched at pre-requisite stage). Each instance may have different topology, different disks, different sizes etc ... Disks (or partitions, whatever) are each managed by a Ceph **OSD** daemon.
 
 So we need to reflect this topology into each instance-specific **ansible/inventories/host_vars/kaktus-eu-west-a-{1,2,3}.yml** file:
 
@@ -229,11 +229,11 @@ kowabunga_ceph_osds:
     weight: 1.0
 ```
 
-For each instance, you'll need to declare disks that are going to be part of the cluster. The **dev** parameter simply maps to the device file itself (it is **more than recommended** to use **/dev/disk/by-id** mapping instead of boggus **/dev/nvme0nX** naming, which can change across reboots). The **weight** parameter will be used for Ceph scheduler for object placement and corresponds to each disk size in TB unit (e.g. 1.92 TB SSD would have a 1.92 weight). And finally the **id** identifier might be the most important of all. This is the **UNIQUE** identifier across your Ceph cluster. Whichever the disk ID you use, you need to ensure than no other disk in no other instance uses the same identifier.
+For each instance, you'll need to declare disks that are going to be part of the cluster. The **dev** parameter simply maps to the device file itself (it is **more than recommended** to use **/dev/disk/by-id** mapping instead of bogus **/dev/nvme0nX** naming, which can change across reboots). The **weight** parameter will be used for Ceph scheduler for object placement and corresponds to each disk size in TB unit (e.g. 1.92 TB SSD would have a 1.92 weight). And finally the **id** identifier might be the most important of all. This is the **UNIQUE** identifier across your Ceph cluster. Whichever the disk ID you use, you need to ensure than no other disk in no other instance uses the same identifier.
 
 ### Data Pools
 
-Once we have disks agregated, we must create data pools on top. Data pools are a logical way to segment your global Ceph cluster usgage. Definition can be made in **ansible/inventories/group_vars/kaktus_eu_west/main.yml** file, as:
+Once we have disks aggregated, we must create data pools on top. Data pools are a logical way to segment your global Ceph cluster usage. Definition can be made in **ansible/inventories/group_vars/kaktus_eu_west/main.yml** file, as:
 
 ```yaml
 kowabunga_ceph_osd_pools:
@@ -268,9 +268,9 @@ In that example, we'll create 4 data pools:
 - 2 of type **rbd** (RADOS block device), for further be used by KVM or a future Kubernetes cluster to provision virtual block device disks.
 - 2 of type **fs** (filesystem), for further be used as underlying NFS storage backend.
 
-Each pool relies on [Ceph Placement Groups](https://docs.ceph.com/en/latest/rados/operations/placement-groups/) for objects fragments distribution across disks in the cluster. There's no rule of thumb on how much one need. Itdepends on your cluster size, its number of disks, its replication factor and many more parameters. You can get some help thanks to [Ceph PG Calculator](https://linuxkidd.com/ceph/pgcalc.html) to set an appropriate value.
+Each pool relies on [Ceph Placement Groups](https://docs.ceph.com/en/latest/rados/operations/placement-groups/) for objects fragments distribution across disks in the cluster. There's no rule of thumb on how much one need. It depends on your cluster size, its number of disks, its replication factor and many more parameters. You can get some help thanks to [Ceph PG Calculator](https://linuxkidd.com/ceph/pgcalc.html) to set an appropriate value.
 
-The **replication** parameter controls the cluster's data redundancy. The bigger the value, the more replicated data will be (and the less prone to disaster you will be), but the fewer usuable space you'll get.
+The **replication** parameter controls the cluster's data redundancy. The bigger the value, the more replicated data will be (and the less prone to disaster you will be), but the fewer usable space you'll get.
 
 ### File Systems
 
@@ -335,4 +335,4 @@ $ kobra ansible deploy -p kowabunga.cloud.kaktus
 
 We’re all set with infrastructure setup.
 
-One last step of [services provisionning](/docs/admin-guide/provision-services/) and we're done !
+One last step of [services provisioning](/docs/admin-guide/provision-services/) and we're done !

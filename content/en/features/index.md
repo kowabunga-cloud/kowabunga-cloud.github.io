@@ -8,7 +8,7 @@ menu:
 
 {{% blocks/cover title="Kowabunga Features" image_anchor="bottom" height="auto" %}}
 
-Unlimited, unconditionned, all-in.
+Unlimited, unconditioned, all-in.
 {.mt-5}
 
 {{% /blocks/cover %}}

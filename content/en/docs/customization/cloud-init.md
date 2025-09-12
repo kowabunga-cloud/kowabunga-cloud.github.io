@@ -12,7 +12,7 @@ Supporting both Linux and Windows targets, they come with the usual:
 
 - **meta_data.yml** file, providing various metadata information, that can be further reused by Kowabunga agents.
 - **network_config.yml** file, allowing for proper automatic network stack and interfaces configuration.
-- **user_data.yml** file, provoiding a sequence of actions to be applied post (initial) boot, as described in its [standard documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html).
+-   **user_data.yml** file, providing a sequence of actions to be applied post (initial) boot, as described in its [standard documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html).
 
 Note that all these files are based on [Go Templates](https://pkg.go.dev/text/template). They are used by **Kahuna** to generate instance-specific configuration files and bundled into an ISO9660 image (stored on Ceph backend), ready to be consumed by OS, and written/updated each time a computing instance is being created/updated.
 
@@ -41,7 +41,7 @@ Microsoft Windows OS is a different story than Linux as there's no default **clo
 
 One can however cope with such limitation thanks to the [Cloudbase-Init](https://cloudbase.it/cloudbase-init/) project which provide **cloud-init** compatibility and is the "*The Quickest Way of Automating Windows Guest Initialization*". It supports Windows 8+ and Windows Server 2012+ OS variants.
 
-Its usage implies a mcu hmore complex approach than Linux targets as it requires you to first [build up your private custom Windows disk image template](https://www.phillipsj.net/posts/building-a-windows-server-qcow2-image/), extending it with [cloudbase-init.conf](https://github.com/kowabunga-cloud/kowabunga/blob/master/config/cloudbase-init/cloudbase-init.conf) configuration file.
+Its usage implies a much more complex approach than Linux targets as it requires you to first [build up your private custom Windows disk image template](https://www.phillipsj.net/posts/building-a-windows-server-qcow2-image/), extending it with [cloudbase-init.conf](https://github.com/kowabunga-cloud/kowabunga/blob/master/config/cloudbase-init/cloudbase-init.conf) configuration file.
 
 Once your image has been built, Kowabunga **cloudbase-init** supports all options from the [NoCloud](https://cloudbase-init.readthedocs.io/en/latest/services.html#nocloud-configuration-drive) engine.
 
@@ -56,7 +56,7 @@ Note that Kowabunga **cloudbase-init** template natively provide the following p
 - Set initial root password.
 - Provision service user, ready to further bootstrap instance.
 
-From there on, you'll get a ready-to-be-consumed Windows instance, which deployment can be further automated thanks to Ansible over SSH or any other provisionning tool or scripts.
+From there on, you'll get a ready-to-be-consumed Windows instance, which deployment can be further automated thanks to Ansible over SSH or any other provisioning tool or scripts.
 
 It is then your responsibility to provide the Microsoft Windows license key (your Windows instance will anyway automatically shutdown after an hour if not).
 

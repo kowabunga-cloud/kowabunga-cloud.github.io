@@ -102,7 +102,7 @@ collections:
     version: 0.1.0
 ```
 
-By default, your platform is configured to pull a tagged official release from Ansible Galaxy. You may however prefer to pull it directly from Git, using latest commit for instance. This can be accomodated through:
+By default, your platform is configured to pull a tagged official release from Ansible Galaxy. You may however prefer to pull it directly from Git, using latest commit for instance. This can be accommodated through:
 
 ```yaml
 ---
@@ -161,7 +161,7 @@ $ kobra secrets edit ansible/inventories/group_vars/all.sops.yml
 and set the requested password:
 
 ```yaml
-secret_kowabunga_os_user_root_password: MY_SUPER_SETRONG_PASSWORD
+secret_kowabunga_os_user_root_password: MY_SUPER_STRONG_PASSWORD
 ```
 
 ### Firewall
@@ -248,7 +248,7 @@ kowabunga_kahuna_smtp_password: "{{ secret_kowabunga_kahuna_smtp_password }}"
 and add the respective secrets into **ansible/inventories/group_vars/kahuna.sops.yml**:
 
 ```yaml
-secret_kowabunga_kahuna_jwt_signature: A_STRONG_JWT_SGINATURE
+secret_kowabunga_kahuna_jwt_signature: A_STRONG_JWT_SIGNATURE
 secret_kowabunga_kahuna_api_key: A_STRONG_API_KEY
 secret_kowabunga_kahuna_smtp_password: A_STRONG_PASSWORD
 ```
@@ -269,4 +269,4 @@ After a few minutes, if everything's went okay, you should have a working **Kahu
 - The [Kahuna](/docs/concepts/kahuna/) backend server itself, our core orchestrator.
 - Optionally, [MongoDB](https://www.mongodb.com/) database.
 
-We're now ready for [provisionning users and teams](/docs/admin-guide/provision-users/) !
+We're now ready for [provisioning users and teams](/docs/admin-guide/provision-users/) !

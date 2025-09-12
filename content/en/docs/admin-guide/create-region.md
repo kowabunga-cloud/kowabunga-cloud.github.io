@@ -4,7 +4,7 @@ description: Let's setup a new region and its Kiwi and Kaktus instances
 weight: 4
 ---
 
-Orchestrator being ready, we can now boostrap our first region.
+Orchestrator being ready, we can now bootstrap our first region.
 
 Let's take the following assumptions for the rest of this tutorial:
 
@@ -111,8 +111,8 @@ Despite that, each instance will have its own agent, to establish a WebSocket co
 Let's continue with the 3 **Kaktus** instances declaration and their associated agents. Note that, this time, instances are associated to the zone itself, not the region.
 
 {{< alert color="success" title="Information" >}}
-Note that **Kaktus** instance creaion/update takes 4 specific parameters into account:
-- **cpu_price** and **memory_price** are purely arbitrary values that express how much actual money is worth your metal infrastructure. These are used to compute virtual cost calculation later, when you'll be spwaning **Kompute** instances with vCPUs and vGB of RAM. Each server being different, it's fully okay to have different values here for your fleet.
+Note that **Kaktus** instance creation/update takes 4 specific parameters into account:
+- **cpu_price** and **memory_price** are purely arbitrary values that express how much actual money is worth your metal infrastructure. These are used to compute virtual cost calculation later, when you'll be spawning **Kompute** instances with vCPUs and vGB of RAM. Each server being different, it's fully okay to have different values here for your fleet.
 - **cpu_overcommit** and **memory_overcommit** define the [overcommit](https://en.wikipedia.org/wiki/Memory_overcommitment) ratio you accept your physical hosts to address. As for price, not every server is born equal. Some have hyper-threading, other don't. You may consider that a value of 3 or 4 is fine, other tend to be stricter and use 2 instead. The more you set the bar, the more virtual resources you'll be able to create but the less actual physical resources they'll be able to get.
 {{< /alert >}}
 
@@ -219,7 +219,7 @@ By default, if you only intend to use plain old **Kompute** instances, virtual d
 
 If you however expect to further use **KFS** or running your own Kubernetes flavor, with an attempt to directly use Ceph backend to instantiate PVCs, exposing the VLAN 102 is mandatory.
 
-To be on the safe side, and furure-proof, keep it exposed.
+To be on the safe side, and future-proof, keep it exposed.
 {{< /alert >}}
 
 
@@ -281,7 +281,7 @@ $ kobra tf apply
 What have we done here ? Simply iterating over VNETs to associate those with VLAN IDs and the name of Linux bridge interfaces which will be created on each **Kaktus** instance from the zone (see [further](/docs/admin-guide/create-kaktus/)).
 
 {{< alert color="success" title="Note" >}}
-Note that while services instances will have dedicated reserved networks, we'll (conventionnally) add the VLAN 0 here (which is not really a VLAN at all).
+Note that while services instances will have dedicated reserved networks, we'll (conventionally) add the VLAN 0 here (which is not really a VLAN at all).
 
 **Kaktus** instances will be created with a **br0** bridge interface, mapped on host private network controller interface(s), where public IP addresses will be bound. This will allow further create virtual machines to be able to bind public IPs through the bridged interface.
 {{< /alert >}}
@@ -307,7 +307,7 @@ resource "kowabunga_subnet" "eu-west" {
 }
 ```
 
-Subnet objects are associated with a given virtual network and usual network settings (such as CIDR, route/rgateway, DNS server) are associated.
+Subnet objects are associated with a given virtual network and usual network settings (such as CIDR, route/gateway, DNS server) are associated.
 
 Note the use of 2 interesting parameters:
 
@@ -380,8 +380,8 @@ Note that we arbitrary took multiple decisions here:
 - Reserve the first 69 IP addresses of the **10.50.102.0/24** subnet for our region growth. Each project's **Kawaii** instance (one per zone) will bind an IP from the range. That's plain enough room for the 10 projects we intend to host. But this saves us some space, shall we need to extend our infrastructure, by adding new **Kaktus** instances.
 - Use of /24 subnets. This is really up to each network administrator. You could pick whichever range you need which wouldn't collapse with what's currently in place.
 - Limit virtual network to one single subnet. We could have added as much as needed.
-- Reserve the first 5 IPs of each subnet. Remember, our 2 **Kiwi** instances are already configured to bind **.2** and **.3** (and **.1** is the VIP). We'll save a few exra room for future use (one never knows ...).
-- Reserve the subnet's last 3 IP addresses for **Kawaii** gateways virtual IPs. We only have one zone for now, so 1 would have been anough, but again, we never know what the future holds ...
+- Reserve the first 5 IPs of each subnet. Remember, our 2 **Kiwi** instances are already configured to bind **.2** and **.3** (and **.1** is the VIP). We'll save a few extra room for future use (one never knows ...).
+- Reserve the subnet's last 3 IP addresses for **Kawaii** gateways virtual IPs. We only have one zone for now, so 1 would have been enough, but again, we never know what the future holds ...
 {{< /alert >}}
 
 {{< alert color="warning" title="Warning" >}}

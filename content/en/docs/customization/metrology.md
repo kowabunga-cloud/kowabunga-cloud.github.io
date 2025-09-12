@@ -6,12 +6,12 @@ weight: 2
 
 Kowabunga comes with bundled support for metrology and instrumentation. No one would ever deploy and maintain a blackbox infrastructure and support it empty handed.
 
-If you're SysAdmin (or DevOps, whatever the name now), and are willing care about monitoring, you'e got 2 options:
+If you're SysAdmin (or DevOps, whatever the name now), and are willing care about monitoring, you're got 2 options:
 
 - Use you're already existing and in-place monitoring stack and tools.
 - Rely on Kowabunga-bundled ones.
 
-In the second option, **Kowabunga** optionnally comes bundled with:
+In the second option, **Kowabunga** optionally comes bundled with:
 
 - [Grafana](https://grafana.com/oss/grafana/), [VictoriaMetrics](https://victoriametrics.com/products/open-source/) and [VictoriaLogs](https://victoriametrics.com/products/victorialogs/), hosted on **Kahuna** server, providing logs and metrics TimeSeries database storage and observability dashboards.
 - [Grafana Alloy](https://grafana.com/oss/alloy-opentelemetry-collector/) agent, hosted on **Kahuna**, **Kiwi** and **Kaktus** nodes, collecting data and streaming to **Kahuna**.
@@ -79,7 +79,7 @@ secret_kowabunga_metrology_dashboard_admin_password: ROBUST_PASSWORD_FOR_GRAFANA
 
 Note that in our example, we've limited metrics and logs retention server-side to 7 days. We'll free to define different persistence duration that suits your needs.
 
-Following [Ansible collection documentation](https://ansible.kowabunga.cloud/kowabunga/cloud/metrology_role.html#ansible-collections-kowabunga-cloud-metrology-role), you can also pre-configure addidtional Grafana users for your organization, e.g:
+Following [Ansible collection documentation](https://ansible.kowabunga.cloud/kowabunga/cloud/metrology_role.html#ansible-collections-kowabunga-cloud-metrology-role), you can also pre-configure additional Grafana users for your organization, e.g:
 
 ```yaml
 kowabunga_metrology_dashboard_extra_users:

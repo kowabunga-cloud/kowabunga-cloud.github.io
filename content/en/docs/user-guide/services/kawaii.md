@@ -58,7 +58,7 @@ Kowabunga VPC peering allows you to inter-connect 2 projects subnets. This can c
 The following example extends our **Kawaii** gateway configuration to peer with 2 subnets:
 
 - the underlying Ceph one, used to directly access storage resources.
-- the one form **marvelous** project, allowing bi-directional connectivity throuh associated ingress/egress firewalling rules.
+- the one form **marvelous** project, allowing bi-directional connectivity through associated ingress/egress firewalling rules.
 
 <!-- prettier-ignore-start -->
 {{< tabpane >}}

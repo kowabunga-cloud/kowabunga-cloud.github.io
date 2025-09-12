@@ -4,7 +4,7 @@ description: Let's populate admin users and teams
 weight: 3
 ---
 
-Your **Kahuna** instance is now up and running, let's get things and create a few admin users accounts. At first, we only have the super-admin API key that was previously set through Ansible deployment. We'll make use of it to provision further users and associated teams. After all, we want a nominative user acount for each contributor, right ?
+Your **Kahuna** instance is now up and running, let's get things and create a few admin users accounts. At first, we only have the super-admin API key that was previously set through Ansible deployment. We'll make use of it to provision further users and associated teams. After all, we want a nominative user account for each contributor, right ?
 
 Back to TF config, let's edit the **terraform/providers.tf** file:
 

@@ -16,7 +16,7 @@ Under the hood, **Kylo** relies on underlying **CephFS** volume, exposed by **Ka
 
 ## Resource Creation
 
-As a **projectAdmin** user, one can create a **Kylo** etwork file-system instance. Example below will spawn a instance named **acme-nfs** in **eu-west** region for project **acme**.
+As a **projectAdmin** user, one can create a **Kylo** network file-system instance. Example below will spawn a instance named **acme-nfs** in **eu-west** region for project **acme**.
 
 <!-- prettier-ignore-start -->
 {{< tabpane >}}

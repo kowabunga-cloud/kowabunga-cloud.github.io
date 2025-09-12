@@ -14,7 +14,7 @@ The values we live for ...
 {{% /blocks/cover %}}
 
 {{% blocks/lead %}}
-Kowabunga is Free & Open Source Software (FOSS) and always will be. We believe in vendor neutrality and that everyone should be able to run software on its own, without any technical or commercial limitations, advertsing, licensing or patent constraint. Free software is a fundamental right and Kowabunga will always be free.
+Kowabunga is Free & Open Source Software (FOSS) and always will be. We believe in vendor neutrality and that everyone should be able to run software on its own, without any technical or commercial limitations, advertising, licensing or patent constraint. Free software is a fundamental right and Kowabunga will always be free.
 {{% /blocks/lead %}}
 
 {{% blocks/section %}}
@@ -41,9 +41,9 @@ So we came with **Kowabunga**: **K**vm **O**rchestrator **W**ith **A** **BUN**ch
 Foreword
 {.h1 .text-right}
 
-"Great things come from passion and I've always been passionate about software engineering. I've always considered it as a true form of art and creation, an approach to craftmanship, an intellectual way to solve problems and give birth to something bigger than yourself, that whould help out others and future generations, your legacy, something you'll be proud of.
+"Great things come from passion and I've always been passionate about software engineering. I've always considered it as a true form of art and creation, an approach to craftsmanship, an intellectual way to solve problems and give birth to something bigger than yourself, that would help out others and future generations, your legacy, something you'll be proud of.
 
-In early 2000s, I've met the Open Source community: the most skilled and talentous developers and contributors I've ever met, all animated by the same passion. It's never been about fame or money, but more about recognition and contribution.
+In early 2000s, I've met the Open Source community: the most skilled and talented developers and contributors I've ever met, all animated by the same passion. It's never been about fame or money, but more about recognition and contribution.
 
 In 2003, I've co-authored [GeeXboX](https://en.wikipedia.org/wiki/GeeXboX): the first Linux Media Center (or HTPC) distribution of its kind. It was a different era, where hardware DVD and DivX players where overly expensive, but we brought Linux to the masses. Hundreds of thousands of non tech-savvy average-Joe users were suddenly using Linux through a remote control without even the slightest clue of what was behind. A large-scale problem surfaced and we brought a solution for, and that was all we ever cared about.
 

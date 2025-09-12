@@ -23,7 +23,7 @@ It brings the best of both worlds:
 
 > *"Cloud computing is basically renting computers, instead of owning and operating your own server hardware. From the start, companies that offer cloud services have promised simplicity and cost savings. Basecamp has had one foot in the cloud for well over a decade, and HEY has been running there exclusively since it was launched two years ago. We’ve run extensively in both Amazon’s cloud and Google’s cloud, but the savings promised in reduced complexity never materialized. So we’ve left.*
 >
-> *The rough math goes like this: We spent $3.2m on cloud in 2022.The cost of rack space and new hardware is a total of **$840,000 per year**.*
+> *The rough math goes like this: We spent $3.2m on cloud in 2022. The cost of rack space and new hardware is a total of **$840,000 per year**.*
 >
 > ***Leaving the cloud will save us $7 million over five years.***
 >
@@ -45,7 +45,7 @@ It brings the best of both worlds:
 
 ## Why do I want it ?
 
-- **What is it good for?**: Modern SaaS products success are tighly coupled with profitability. As soon as you scale up, you'll quickly understand that you're actually sponsoring your Cloud provider more than your own teams. **Kowabunga** allows you to keep control of your infrastructure and its associated cost and lifecycle. You'll never get afraid of unexpected business model change, tariffs and whatnot. You own your stack, with no surprises.
+- **What is it good for?**: Modern SaaS products success are tightly coupled with profitability. As soon as you scale up, you'll quickly understand that you're actually sponsoring your Cloud provider more than your own teams. **Kowabunga** allows you to keep control of your infrastructure and its associated cost and lifecycle. You'll never get afraid of unexpected business model change, tariffs and whatnot. You own your stack, with no surprises.
 
 - **What is it not good for?**: PoC and MVP startups. Let's be realistic, if you're goal is to vibe-code your next million-dollar idea and deliver it, no matter how and what, forget about us. You have other fish to fry than mastering your own infrastructure. Get funded, wait for your investors to ask for RoI, and you'll make your mind.
 

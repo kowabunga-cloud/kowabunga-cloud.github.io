@@ -13,7 +13,7 @@ Ceph provides both:
 
 Ceph is awesome. Ceph is fault-tolerant. Ceph hashes your file objects into thousands of pieces, distributed and replicated over dozens if not hundreds of SSDs on countless machines. And yet, Ceph sometimes crashes or fails to recover (even though it has incredible self healing capabilities).
 
-While Ceph perfeclty survives some occasional nodes failure, have a try when you have a complete network or power-supply outage in your region, and you'll figure it out ;-)
+While Ceph perfectly survives some occasional nodes failure, have a try when you have a complete network or power-supply outage in your region, and you'll figure it out ;-)
 
 So let's so how we can restore Ceph cluster.
 
@@ -98,7 +98,7 @@ Check for global CephFs status, including clients list, number of active MDS ser
 $ ceph fs status
 ```
 
-Additionnally, you can get a dump of all filesystem, trying to find MDS daemons' status (laggy, replay ...):
+Additionally, you can get a dump of all filesystem, trying to find MDS daemons' status (laggy, replay ...):
 
 ```sh
 $ ceph fs dump

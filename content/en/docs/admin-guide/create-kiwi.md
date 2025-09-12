@@ -108,7 +108,7 @@ kowabunga_network_failover_settings:
         {{- res -}}
 ```
 
-Once again, we interate over **kowabunga_region_vlan_id_ranges** variable to create our global configuration for **eu-west** region. After all, both **Kiwi** instances from there will have the very same configuration.
+Once again, we iterate over **kowabunga_region_vlan_id_ranges** variable to create our global configuration for **eu-west** region. After all, both **Kiwi** instances from there will have the very same configuration.
 
 This will ensure that VRRP packets flows between the 2 peers so one always ends up being the active router for each virtual network interface.
 
@@ -183,8 +183,8 @@ Finally, edit the SOPS-encrypted **ansible/inventories/group_vars/kiwi.sops.yml*
 ```yaml
 secret_kowabunga_powerdns_webserver_password: ONE_STRONG_PASSWORD
 secret_kowabunga_powerdns_api_key: ONE_MORE
-secret_kowabunaga_powerdns_db_admin_password: YET_ANOTHER
-secret_kowabunaga_powerdns_db_user_password: HERE_WE_GO
+secret_kowabunga_powerdns_db_admin_password: YET_ANOTHER
+secret_kowabunga_powerdns_db_user_password: HERE_WE_GO
 ```
 
 As names stand, first 2 variables will be used to expose **PowerDNS** API (which will be consumed by **Kiwi** agent) and last twos are MariaDB credentials, used by **PowerDNS** to connect to. None of these passwords really matter, they're server-to-server internal use only, no use is ever going to make use of them. But let's use something robust nonetheless.
@@ -210,4 +210,4 @@ We're finally done with **Kiwi**'s configuration. All we need to do now is final
 $ kobra ansible deploy -p kowabunga.cloud.kiwi
 ```
 
-We’re now ready for [provisionning Kaktus HCI nodes](/docs/admin-guide/create-kaktus/) !
+We’re now ready for [provisioning Kaktus HCI nodes](/docs/admin-guide/create-kaktus/) !
