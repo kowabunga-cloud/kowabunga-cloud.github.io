@@ -28,13 +28,13 @@ Kowabunga features several core infrastructure components, used to expose REST A
 
   {{< /card >}}
   {{< card header="**Koala**" >}}
-  <img src="wip.png" class="img-fluid">
+  <img src="koala.png" class="img-fluid">
 
   Kowabunga **WebUI**: allows for day-to-day supervision and operation of the various projects and services.
 
   {{< /card >}}
   {{< card header="**Kiwi**" >}}
-  <img src="wip.png" class="img-fluid">
+  <img src="kiwi.png" class="img-fluid">
 
   Kowabunga **SD-WAN node**: provides various network services like routing, firewall, DHCP, DNS, VPN, IPSec peering (with active-passive failover).
   {{< /card >}}
@@ -55,12 +55,12 @@ Kowabunga features multiple -as-a-service components, which can be seamlessly de
 
 {{< cardpane >}}
   {{< card header="**Kawaii**" >}}
-  <img src="wip.png" class="img-fluid">
+  <img src="kawaii.png" class="img-fluid">
 
   **Kawaii** provides Internet Gateway services. It connects your various project instances to and possibly from Internet, featuring inbound firewall and network VPC and IPSec peering capabilities.
   {{< /card >}}
   {{< card header="**Kompute**" >}}
-  <img src="wip.png" class="img-fluid">
+  <img src="kompute.png" class="img-fluid">
 
   **Kompute** is the basic building block of your eco-system, providing virtual computing and block storage disks. Granularity scales per CPU and per GB of memory and disk, allowing for fully custom appliances.
   {{< /card >}}
